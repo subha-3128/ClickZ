@@ -1,0 +1,123 @@
+/* ---------- Header ---------- */
+.header {
+  position: sticky;
+  top: 0;
+  z-index: 25;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 18px 0 14px;
+  margin-bottom: 14px;
+  background: linear-gradient(to bottom, rgba(7, 16, 20, 0.96) 70%, transparent);
+  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(12px);
+}
+
+.header-brand {
+  display: flex;
+  align-items: center;
+  gap: 11px;
+}
+
+.header-logo {
+  width: 38px;
+  height: 38px;
+  object-fit: contain;
+}
+
+.header h1 {
+  font-size: clamp(1.16rem, 2vw, 1.4rem);
+  letter-spacing: -0.02em;
+  color: var(--text-main);
+}
+
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.btn-add,
+.btn-logout {
+  height: 38px;
+  border-radius: var(--radius-pill);
+  padding: 0 14px;
+  border: 1px solid var(--stroke);
+  color: var(--text-main);
+  font-size: 12px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 180ms ease;
+}
+
+.btn-add {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: linear-gradient(165deg, var(--brand) 0%, var(--brand-strong) 100%);
+  border-color: transparent;
+  color: #031318;
+  box-shadow: 0 8px 20px rgba(45, 180, 201, 0.28);
+}
+
+.btn-add:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 12px 24px rgba(45, 180, 201, 0.35);
+}
+
+.btn-add svg {
+  width: 14px;
+  height: 14px;
+}
+
+.btn-logout {
+  background: var(--panel-solid);
+}
+
+.btn-logout:hover {
+  background: var(--panel-hover);
+  border-color: var(--stroke-strong);
+}
+
+.profile-chip {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  overflow: hidden;
+  border: 1px solid var(--stroke);
+  background: var(--panel-solid);
+  color: var(--text-main);
+  display: grid;
+  place-items: center;
+  font-size: 12px;
+  font-weight: 800;
+}
+
+.profile-chip img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+@media (max-width: 760px) {
+  .header {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .header-actions {
+    width: 100%;
+    flex-wrap: wrap;
+  }
+
+  .btn-add,
+  .btn-logout {
+    flex: 1;
+    min-width: 96px;
+  }
+
+  .profile-chip {
+    margin-left: auto;
+  }
+}

@@ -1,0 +1,133 @@
+@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap');
+
+:root {
+  --app-bg: #071014;
+  --app-bg-soft: #0c1a20;
+  --panel: rgba(15, 30, 36, 0.78);
+  --panel-solid: #13242b;
+  --panel-hover: #19323b;
+  --stroke: rgba(163, 196, 204, 0.2);
+  --stroke-strong: rgba(163, 196, 204, 0.36);
+  --text-main: #e8f3f5;
+  --text-soft: #96b2b7;
+  --text-dim: #759198;
+  --focus: #39b2c8;
+  --brand: #2db4c9;
+  --brand-strong: #198ca8;
+  --danger: #ff7171;
+  --success: #35cb87;
+  --radius-card: 14px;
+  --radius-pill: 999px;
+  --shadow-panel: 0 14px 38px rgba(2, 10, 12, 0.34);
+}
+
+.app,
+.loading-screen {
+  font-family: 'Manrope', 'Avenir Next', 'Segoe UI', sans-serif;
+}
+
+/* ---------- App Shell ---------- */
+.app {
+  width: min(1120px, 100% - 36px);
+  margin: 0 auto;
+  min-height: 100vh;
+  padding: 0 0 38px;
+}
+
+.loading-screen {
+  min-height: 100vh;
+  display: grid;
+  place-items: center;
+  padding: 22px;
+  background:
+    radial-gradient(900px 500px at -10% -20%, rgba(45, 180, 201, 0.14), transparent 60%),
+    radial-gradient(700px 420px at 110% 120%, rgba(53, 203, 135, 0.14), transparent 60%);
+}
+
+.loading-card {
+  width: min(92vw, 450px);
+  background: linear-gradient(170deg, rgba(19, 36, 43, 0.88), rgba(12, 25, 30, 0.9));
+  border: 1px solid var(--stroke);
+  border-radius: 22px;
+  box-shadow: var(--shadow-panel);
+  padding: 34px;
+  text-align: center;
+  color: var(--text-main);
+  font-weight: 600;
+  letter-spacing: 0.01em;
+}
+
+/* ---------- Search ---------- */
+.search-container {
+  position: relative;
+  margin-bottom: 14px;
+}
+
+.search-icon {
+  position: absolute;
+  left: 14px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--text-dim);
+  pointer-events: none;
+}
+
+.search-icon svg {
+  width: 16px;
+  height: 16px;
+}
+
+.search-input {
+  width: 100%;
+  height: 46px;
+  border-radius: 12px;
+  border: 1px solid var(--stroke);
+  background: rgba(19, 36, 43, 0.7);
+  -webkit-backdrop-filter: blur(8px);
+  backdrop-filter: blur(8px);
+  padding: 0 44px;
+  color: var(--text-main);
+  outline: none;
+  transition: border-color 180ms ease, box-shadow 180ms ease;
+}
+
+.search-input::placeholder {
+  color: var(--text-dim);
+}
+
+.search-input:focus {
+  border-color: var(--focus);
+  box-shadow: 0 0 0 3px rgba(57, 178, 200, 0.18);
+}
+
+.search-clear {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  border: none;
+  background: transparent;
+  color: var(--text-dim);
+  cursor: pointer;
+  transition: background 150ms ease, color 150ms ease;
+}
+
+.search-clear:hover {
+  background: rgba(255, 255, 255, 0.07);
+  color: var(--text-main);
+}
+
+/* ---------- Content ---------- */
+.content-area {
+  animation: fadeIn var(--transition-base) both;
+}
+
+@media (max-width: 760px) {
+  .app {
+    width: calc(100% - 20px);
+    padding-bottom: 24px;
+  }
+}
