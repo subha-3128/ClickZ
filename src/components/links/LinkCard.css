@@ -1,10 +1,11 @@
-/* ---------- Content ---------- */
+/* ---------- Link List ---------- */
 .link-list {
   display: flex;
   flex-direction: column;
   gap: 10px;
 }
 
+/* ---------- Link Card ---------- */
 .link-card {
   width: 100%;
   border: 1px solid var(--stroke);
@@ -12,18 +13,37 @@
   background: linear-gradient(160deg, rgba(19, 36, 43, 0.88), rgba(16, 32, 38, 0.9));
   display: flex;
   align-items: center;
-  gap: 12px;
-  padding: 13px 14px;
-  text-align: left;
-  cursor: pointer;
-  color: inherit;
+  gap: 6px;
+  padding: 8px 8px 8px 0;
   transition: transform 180ms ease, border-color 180ms ease, box-shadow 180ms ease;
+  position: relative;
 }
 
 .link-card:hover {
   transform: translateY(-2px);
   border-color: var(--stroke-strong);
   box-shadow: 0 12px 24px rgba(7, 14, 17, 0.35);
+}
+
+/* ---------- Card Main (copy area) ---------- */
+.link-card-main {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 5px 6px 5px 14px;
+  background: transparent;
+  border: none;
+  color: inherit;
+  cursor: pointer;
+  text-align: left;
+  border-radius: 10px;
+  transition: background 150ms ease;
+}
+
+.link-card-main:hover {
+  background: rgba(255, 255, 255, 0.04);
 }
 
 .link-card-logo {
@@ -51,6 +71,7 @@
 }
 
 .link-card-info {
+  flex: 1;
   min-width: 0;
 }
 
@@ -66,4 +87,142 @@
   color: var(--text-soft);
   font-size: 12px;
   margin-top: 3px;
+}
+
+.link-card-copy-hint {
+  flex-shrink: 0;
+  color: var(--text-dim);
+  opacity: 0;
+  transition: opacity 180ms ease;
+}
+
+.link-card-copy-hint svg {
+  width: 15px;
+  height: 15px;
+}
+
+.link-card-main:hover .link-card-copy-hint {
+  opacity: 1;
+}
+
+/* ---------- Card Action Buttons ---------- */
+.link-card-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  flex-shrink: 0;
+  padding-right: 6px;
+  opacity: 0;
+  transition: opacity 180ms ease;
+}
+
+.link-card:hover .link-card-actions {
+  opacity: 1;
+}
+
+.link-card-action-btn {
+  width: 30px;
+  height: 30px;
+  border-radius: 8px;
+  border: 1px solid var(--stroke);
+  background: rgba(15, 30, 36, 0.9);
+  color: var(--text-soft);
+  cursor: pointer;
+  display: grid;
+  place-items: center;
+  transition: background 150ms ease, color 150ms ease, border-color 150ms ease;
+  flex-shrink: 0;
+}
+
+.link-card-action-btn svg {
+  width: 13px;
+  height: 13px;
+}
+
+.link-card-action-btn--edit:hover {
+  background: rgba(45, 180, 201, 0.15);
+  border-color: rgba(45, 180, 201, 0.4);
+  color: var(--brand);
+}
+
+.link-card-action-btn--delete:hover {
+  background: rgba(255, 113, 113, 0.15);
+  border-color: rgba(255, 113, 113, 0.4);
+  color: var(--danger);
+}
+
+/* ---------- Delete Confirmation ---------- */
+.link-card--confirm {
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 14px;
+  gap: 12px;
+  animation: slideDown 180ms ease both;
+}
+
+@keyframes slideDown {
+  from { opacity: 0; transform: translateY(-6px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.link-card-confirm-text {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--text-main);
+  font-size: 14px;
+}
+
+.link-card-confirm-text svg {
+  width: 16px;
+  height: 16px;
+  color: var(--danger);
+  flex-shrink: 0;
+}
+
+.link-card-confirm-actions {
+  display: flex;
+  gap: 8px;
+  flex-shrink: 0;
+}
+
+.link-card-action-btn--cancel {
+  width: auto;
+  padding: 0 12px;
+  height: 32px;
+  border-radius: 8px;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.link-card-action-btn--cancel:hover {
+  background: rgba(255, 255, 255, 0.07);
+  border-color: var(--stroke-strong);
+  color: var(--text-main);
+}
+
+.link-card-action-btn--danger {
+  width: auto;
+  padding: 0 12px;
+  height: 32px;
+  border-radius: 8px;
+  font-size: 12px;
+  font-weight: 700;
+  background: rgba(255, 113, 113, 0.15);
+  border-color: rgba(255, 113, 113, 0.4);
+  color: var(--danger);
+}
+
+.link-card-action-btn--danger:hover {
+  background: rgba(255, 113, 113, 0.28);
+  border-color: rgba(255, 113, 113, 0.6);
+}
+
+/* Mobile: always show actions */
+@media (max-width: 760px) {
+  .link-card-actions {
+    opacity: 1;
+    flex-direction: row;
+  }
 }

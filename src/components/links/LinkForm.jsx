@@ -3,10 +3,11 @@ import { isValidUrl } from '../../utils/helpers';
 import { IconX } from '../ui/Icons';
 import './LinkForm.css';
 
-export function LinkForm({ onSave, onCancel, saving }) {
-  const [name, setName] = useState('');
-  const [customId, setCustomId] = useState('');
-  const [link, setLink] = useState('');
+export function LinkForm({ onSave, onCancel, saving, initialData }) {
+  const isEditing = Boolean(initialData);
+  const [name, setName] = useState(initialData?.name || '');
+  const [customId, setCustomId] = useState(initialData?.custom_id || '');
+  const [link, setLink] = useState(initialData?.link || '');
   const [errors, setErrors] = useState({});
   const nameRef = useRef(null);
 
@@ -49,7 +50,7 @@ export function LinkForm({ onSave, onCancel, saving }) {
     <div className="modal-overlay" onClick={handleOverlayClick}>
       <div className="modal" role="dialog" aria-modal="true" aria-labelledby="add-link-title">
         <div className="modal-header">
-          <h2 id="add-link-title">Add Link</h2>
+          <h2 id="add-link-title">{isEditing ? 'Edit Link' : 'Add Link'}</h2>
           <button className="modal-close" onClick={onCancel} disabled={saving} aria-label="Close">
             <IconX />
           </button>
@@ -110,7 +111,7 @@ export function LinkForm({ onSave, onCancel, saving }) {
               Cancel
             </button>
             <button type="submit" className="btn btn-primary" disabled={saving}>
-              {saving ? 'Saving...' : 'Save'}
+              {saving ? (isEditing ? 'Saving...' : 'Saving...') : (isEditing ? 'Save Changes' : 'Save')}
             </button>
           </div>
         </form>

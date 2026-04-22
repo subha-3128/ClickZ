@@ -1,8 +1,22 @@
+import { useState, useRef, useEffect } from 'react';
 import { getInitials } from '../../utils/helpers';
 import { IconPlus } from '../ui/Icons';
 import './Header.css';
 
 export function Header({ user, onLogout, onAddLink }) {
+  const [showDropdown, setShowDropdown] = useState(false);
+  const containerRef = useRef(null);
+
+  useEffect(() => {
+    function handleClickOutside(e) {
+      if (containerRef.current && !containerRef.current.contains(e.target)) {
+        setShowDropdown(false);
+      }
+    }
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, []);
+
   return (
     <header className="header">
       <div className="header-brand">
@@ -15,16 +29,31 @@ export function Header({ user, onLogout, onAddLink }) {
           <IconPlus />
           Add
         </button>
-        <div className="profile-chip" title={user.email || 'User'}>
-          {user.user_metadata?.avatar_url ? (
-            <img src={user.user_metadata.avatar_url} alt="Profile avatar" />
-          ) : (
-            <span>{getInitials(user.user_metadata?.full_name || user.email || 'U')}</span>
+        <div className="profile-container" ref={containerRef}>
+          <button
+            className="profile-chip"
+            title={user.email || 'User'}
+            aria-expanded={showDropdown}
+            aria-haspopup="true"
+            onClick={() => setShowDropdown((prev) => !prev)}
+          >
+            {user.user_metadata?.avatar_url ? (
+              <img src={user.user_metadata.avatar_url} alt="Profile avatar" />
+            ) : (
+              <span>{getInitials(user.user_metadata?.full_name || user.email || 'U')}</span>
+            )}
+          </button>
+          {showDropdown && (
+            <div className="profile-dropdown">
+              <button className="btn-logout" onClick={() => {
+                setShowDropdown(false);
+                onLogout();
+              }}>
+                Logout
+              </button>
+            </div>
           )}
         </div>
-        <button className="btn-logout" onClick={onLogout}>
-          Logout
-        </button>
       </div>
     </header>
   );

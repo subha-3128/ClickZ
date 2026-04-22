@@ -18,9 +18,10 @@ export default function App() {
   const [links, setLinks] = useState([]);
   const [linksLoading, setLinksLoading] = useState(false);
   const [showModal, setShowModal] = useState(false);
+  const [editingLink, setEditingLink] = useState(null);
   const [saving, setSaving] = useState(false);
   const [search, setSearch] = useState('');
-  const [toast, setToast] = useState(null);
+  const [toast, setToast] = useState({ msg: null, id: 0 });
 
   const user = session?.user ?? null;
 
@@ -61,6 +62,7 @@ export default function App() {
       const { data, error } = await supabase
         .from('links')
         .select('id, name, custom_id, link, created_at')
+        .eq('user_id', user.id)
         .order('created_at', { ascending: false });
 
       if (error) throw error;
@@ -72,7 +74,7 @@ export default function App() {
 
       setLinks(data ?? []);
     } catch {
-      setToast('Could not load links');
+      setToast((prev) => ({ msg: 'Could not load links', id: prev.id + 1 }));
     } finally {
       setLinksLoading(false);
     }
@@ -107,11 +109,11 @@ export default function App() {
         },
       });
       if (error) {
-        setToast('Sign-in failed');
+        setToast((prev) => ({ msg: 'Sign-in failed', id: prev.id + 1 }));
         setAuthenticating(false);
       }
     } catch {
-      setToast('Sign-in failed');
+      setToast((prev) => ({ msg: 'Sign-in failed', id: prev.id + 1 }));
       setAuthenticating(false);
     }
   }
@@ -119,10 +121,10 @@ export default function App() {
   async function handleLogout() {
     const { error } = await supabase.auth.signOut();
     if (error) {
-      setToast('Logout failed');
+      setToast((prev) => ({ msg: 'Logout failed', id: prev.id + 1 }));
       return;
     }
-    setToast('Logged out');
+    setToast((prev) => ({ msg: 'Logged out', id: prev.id + 1 }));
   }
 
   async function handleAddLink(formData) {
@@ -145,9 +147,9 @@ export default function App() {
 
       setLinks((prev) => [data, ...prev]);
       setShowModal(false);
-      setToast('Link saved');
+      setToast((prev) => ({ msg: 'Link saved', id: prev.id + 1 }));
     } catch {
-      setToast('Could not save link');
+      setToast((prev) => ({ msg: 'Could not save link', id: prev.id + 1 }));
     } finally {
       setSaving(false);
     }
@@ -156,17 +158,55 @@ export default function App() {
   async function handleCopy(link) {
     try {
       await navigator.clipboard.writeText(link);
-      setToast('Link copied');
+      setToast((prev) => ({ msg: 'Link copied', id: prev.id + 1 }));
     } catch {
-      const textArea = document.createElement('textarea');
-      textArea.value = link;
-      textArea.style.position = 'fixed';
-      textArea.style.opacity = '0';
-      document.body.appendChild(textArea);
-      textArea.select();
-      document.execCommand('copy');
-      document.body.removeChild(textArea);
-      setToast('Link copied');
+      setToast((prev) => ({ msg: 'Copy failed — please copy manually', id: prev.id + 1 }));
+    }
+  }
+
+  async function handleUpdateLink(formData) {
+    if (!user || !editingLink) return;
+    setSaving(true);
+
+    try {
+      const { data, error } = await supabase
+        .from('links')
+        .update({
+          name: formData.name,
+          custom_id: formData.customId,
+          link: formData.link,
+        })
+        .eq('id', editingLink.id)
+        .eq('user_id', user.id)
+        .select('id, name, custom_id, link, created_at')
+        .single();
+
+      if (error) throw error;
+
+      setLinks((prev) => prev.map((l) => (l.id === data.id ? data : l)));
+      setEditingLink(null);
+      setToast((prev) => ({ msg: 'Link updated', id: prev.id + 1 }));
+    } catch {
+      setToast((prev) => ({ msg: 'Could not update link', id: prev.id + 1 }));
+    } finally {
+      setSaving(false);
+    }
+  }
+
+  async function handleDeleteLink(id) {
+    try {
+      const { error } = await supabase
+        .from('links')
+        .delete()
+        .eq('id', id)
+        .eq('user_id', user.id);
+
+      if (error) throw error;
+
+      setLinks((prev) => prev.filter((l) => l.id !== id));
+      setToast((prev) => ({ msg: 'Link deleted', id: prev.id + 1 }));
+    } catch {
+      setToast((prev) => ({ msg: 'Could not delete link', id: prev.id + 1 }));
     }
   }
 
@@ -182,7 +222,7 @@ export default function App() {
     return (
       <>
         <LoginScreen onLogin={handleLogin} isAuthenticating={authenticating} />
-        {toast && <Toast key={toast} message={toast} onDone={() => setToast(null)} />}
+        {toast.msg && <Toast key={toast.id} message={toast.msg} onDone={() => setToast((prev) => ({ ...prev, msg: null }))} />}
       </>
     );
   }
@@ -215,7 +255,13 @@ export default function App() {
         ) : filteredLinks.length > 0 ? (
           <div className="link-list">
             {filteredLinks.map((item) => (
-              <LinkCard key={item.id} item={item} onCopy={handleCopy} />
+              <LinkCard
+                key={item.id}
+                item={item}
+                onCopy={handleCopy}
+                onEdit={(link) => setEditingLink(link)}
+                onDelete={handleDeleteLink}
+              />
             ))}
           </div>
         ) : (
@@ -223,15 +269,16 @@ export default function App() {
         )}
       </main>
 
-      {showModal && (
+      {(showModal || editingLink) && (
         <LinkForm
-          onSave={handleAddLink}
-          onCancel={() => setShowModal(false)}
+          onSave={showModal ? handleAddLink : handleUpdateLink}
+          onCancel={() => { setShowModal(false); setEditingLink(null); }}
           saving={saving}
+          initialData={editingLink}
         />
       )}
 
-      {toast && <Toast key={toast} message={toast} onDone={() => setToast(null)} />}
+      {toast.msg && <Toast key={toast.id} message={toast.msg} onDone={() => setToast((prev) => ({ ...prev, msg: null }))} />}
     </div>
   );
 }
