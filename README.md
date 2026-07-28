@@ -9,7 +9,14 @@
 </div>
 
 ---
+## 👨‍💻 Author
 
+**Subhajit Bepari**
+- 💼 LinkedIn: [linkedin.com/in/subhajit-bepari](https://www.linkedin.com/in/subhajit-bepari/)
+- 🐙 GitHub: [@subha-3128](https://github.com/subha-3128)
+- 🌐 Live App: [click-z.vercel.app](https://click-z.vercel.app/)
+
+  
 ## 🌟 Features
 
 - **Secure Authentication**: Passwordless Google OAuth login powered by Supabase.
@@ -26,12 +33,5 @@
 - **Authentication**: Supabase Auth (Google OAuth)
 - **Deployment**: Vercel
 - **Assets**: Dynamic SVGs via Iconify MDI
-## 👨‍💻 Author
-
-**Subhajit Bepari**
-- 💼 LinkedIn: [linkedin.com/in/subhajit-bepari](https://www.linkedin.com/in/subhajit-bepari/)
-- 🐙 GitHub: [@subha-3128](https://github.com/subha-3128)
-- 🌐 Live App: [click-z.vercel.app](https://click-z.vercel.app/)
-
 ---
 *Built with ❤️ for better link management.*
