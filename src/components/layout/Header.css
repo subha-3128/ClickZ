@@ -8,7 +8,7 @@
   justify-content: space-between;
   padding: 18px 0 14px;
   margin-bottom: 14px;
-  background: linear-gradient(to bottom, rgba(7, 16, 20, 0.96) 70%, transparent);
+  background: linear-gradient(to bottom, rgba(var(--app-bg-rgb), 0.96) 70%, transparent);
   -webkit-backdrop-filter: blur(12px);
   backdrop-filter: blur(12px);
 }
@@ -57,12 +57,12 @@
   background: linear-gradient(165deg, var(--brand) 0%, var(--brand-strong) 100%);
   border-color: transparent;
   color: #031318;
-  box-shadow: 0 8px 20px rgba(45, 180, 201, 0.28);
+  box-shadow: 0 8px 20px rgba(var(--brand-rgb), 0.28);
 }
 
 .btn-add:hover {
   transform: translateY(-1px);
-  box-shadow: 0 12px 24px rgba(45, 180, 201, 0.35);
+  box-shadow: 0 12px 24px rgba(var(--brand-rgb), 0.35);
 }
 
 .btn-add svg {
@@ -77,6 +77,30 @@
 .btn-logout:hover {
   background: var(--panel-hover);
   border-color: var(--stroke-strong);
+}
+
+.btn-theme-toggle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  border: 1px solid var(--stroke);
+  background: var(--panel-solid);
+  color: var(--text-main);
+  cursor: pointer;
+  transition: all 180ms ease;
+}
+
+.btn-theme-toggle:hover {
+  background: var(--panel-hover);
+  border-color: var(--stroke-strong);
+}
+
+.btn-theme-toggle svg {
+  width: 18px;
+  height: 18px;
 }
 
 .profile-container {

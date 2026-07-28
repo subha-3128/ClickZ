@@ -24,6 +24,17 @@ export default function App() {
   const [search, setSearch] = useState('');
   const [toast, setToast] = useState({ msg: null, id: 0 });
 
+  const [theme, setTheme] = useState(() => {
+    return localStorage.getItem('theme') || (window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark');
+  });
+
+  useEffect(() => {
+    document.documentElement.setAttribute('data-theme', theme);
+    localStorage.setItem('theme', theme);
+  }, [theme]);
+
+  const toggleTheme = () => setTheme(prev => prev === 'dark' ? 'light' : 'dark');
+
   const user = session?.user ?? null;
 
   useEffect(() => {
@@ -231,7 +242,8 @@ export default function App() {
 
   return (
     <div className="app">
-      <Header user={user} onLogout={handleLogout} onAddLink={() => setShowModal(true)} />
+      <Header user={user} onLogout={handleLogout} onAddLink={() => setShowModal(true)} theme={theme} toggleTheme={toggleTheme} />
+
 
       {links.length > 0 && !linksLoading && (
         <div className="search-container">

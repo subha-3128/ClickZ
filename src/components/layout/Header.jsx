@@ -1,9 +1,9 @@
 import { useState, useRef, useEffect } from 'react';
 import { getInitials } from '../../utils/helpers';
-import { IconPlus } from '../ui/Icons';
+import { IconPlus, IconSun, IconMoon } from '../ui/Icons';
 import './Header.css';
 
-export function Header({ user, onLogout, onAddLink }) {
+export function Header({ user, onLogout, onAddLink, theme, toggleTheme }) {
   const [showDropdown, setShowDropdown] = useState(false);
   const containerRef = useRef(null);
 
@@ -25,6 +25,9 @@ export function Header({ user, onLogout, onAddLink }) {
       </div>
 
       <div className="header-actions">
+        <button className="btn-theme-toggle" onClick={toggleTheme} aria-label="Toggle theme">
+          {theme === 'dark' ? <IconSun /> : <IconMoon />}
+        </button>
         <button className="btn-add" onClick={onAddLink}>
           <IconPlus />
           Add

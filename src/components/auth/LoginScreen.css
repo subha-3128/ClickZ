@@ -5,13 +5,13 @@
   place-items: center;
   padding: 22px;
   background:
-    radial-gradient(900px 500px at -10% -20%, rgba(45, 180, 201, 0.14), transparent 60%),
-    radial-gradient(700px 420px at 110% 120%, rgba(53, 203, 135, 0.14), transparent 60%);
+    radial-gradient(900px 500px at -10% -20%, rgba(var(--brand-rgb), 0.14), transparent 60%),
+    radial-gradient(700px 420px at 110% 120%, rgba(var(--success-rgb), 0.14), transparent 60%);
 }
 
 .login-card {
   width: min(92vw, 450px);
-  background: linear-gradient(170deg, rgba(19, 36, 43, 0.88), rgba(12, 25, 30, 0.9));
+  background: linear-gradient(170deg, rgba(var(--panel-solid-rgb), 0.88), rgba(var(--app-bg-soft-rgb), 0.9));
   border: 1px solid var(--stroke);
   border-radius: 22px;
   box-shadow: var(--shadow-panel);

@@ -10,7 +10,7 @@
   width: 100%;
   border: 1px solid var(--stroke);
   border-radius: var(--radius-card);
-  background: linear-gradient(160deg, rgba(19, 36, 43, 0.88), rgba(16, 32, 38, 0.9));
+  background: linear-gradient(160deg, rgba(var(--panel-solid-rgb), 0.88), rgba(var(--app-bg-soft-rgb), 0.9));
   display: flex;
   align-items: center;
   gap: 6px;
@@ -52,10 +52,10 @@
   border-radius: 12px;
   flex-shrink: 0;
   overflow: hidden;
-  background: #11252d;
+  background: var(--panel-solid);
   display: grid;
   place-items: center;
-  color: #041115;
+  color: var(--text-main);
   font-weight: 800;
   font-size: 14px;
 }
@@ -125,7 +125,7 @@
   height: 30px;
   border-radius: 8px;
   border: 1px solid var(--stroke);
-  background: rgba(15, 30, 36, 0.9);
+  background: rgba(var(--panel-solid-rgb), 0.9);
   color: var(--text-soft);
   cursor: pointer;
   display: grid;
@@ -140,14 +140,14 @@
 }
 
 .link-card-action-btn--edit:hover {
-  background: rgba(45, 180, 201, 0.15);
-  border-color: rgba(45, 180, 201, 0.4);
+  background: rgba(var(--brand-rgb), 0.15);
+  border-color: rgba(var(--brand-rgb), 0.4);
   color: var(--brand);
 }
 
 .link-card-action-btn--delete:hover {
-  background: rgba(255, 113, 113, 0.15);
-  border-color: rgba(255, 113, 113, 0.4);
+  background: rgba(var(--danger-rgb), 0.15);
+  border-color: rgba(var(--danger-rgb), 0.4);
   color: var(--danger);
 }
 
@@ -209,14 +209,14 @@
   border-radius: 8px;
   font-size: 12px;
   font-weight: 700;
-  background: rgba(255, 113, 113, 0.15);
-  border-color: rgba(255, 113, 113, 0.4);
+  background: rgba(var(--danger-rgb), 0.15);
+  border-color: rgba(var(--danger-rgb), 0.4);
   color: var(--danger);
 }
 
 .link-card-action-btn--danger:hover {
-  background: rgba(255, 113, 113, 0.28);
-  border-color: rgba(255, 113, 113, 0.6);
+  background: rgba(var(--danger-rgb), 0.28);
+  border-color: rgba(var(--danger-rgb), 0.6);
 }
 
 /* Mobile: always show actions */

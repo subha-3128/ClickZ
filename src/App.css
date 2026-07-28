@@ -1,9 +1,13 @@
 :root {
   --app-bg: #071014;
+  --app-bg-rgb: 7, 16, 20;
   --app-bg-soft: #0c1a20;
-  --panel: rgba(15, 30, 36, 0.78);
+  --app-bg-soft-rgb: 12, 26, 32;
+  --panel: rgba(var(--panel-solid-rgb), 0.78);
   --panel-solid: #13242b;
+  --panel-solid-rgb: 19, 36, 43;
   --panel-hover: #19323b;
+  --panel-hover-rgb: 25, 50, 59;
   --stroke: rgba(163, 196, 204, 0.2);
   --stroke-strong: rgba(163, 196, 204, 0.36);
   --text-main: #e8f3f5;
@@ -11,12 +15,41 @@
   --text-dim: #759198;
   --focus: #39b2c8;
   --brand: #2db4c9;
+  --brand-rgb: 45, 180, 201;
   --brand-strong: #198ca8;
   --danger: #ff7171;
+  --danger-rgb: 255, 113, 113;
   --success: #35cb87;
+  --success-rgb: 53, 203, 135;
   --radius-card: 14px;
   --radius-pill: 999px;
   --shadow-panel: 0 14px 38px rgba(2, 10, 12, 0.34);
+}
+
+[data-theme="light"] {
+  --app-bg: #f8fafc;
+  --app-bg-rgb: 248, 250, 252;
+  --app-bg-soft: #f1f5f9;
+  --app-bg-soft-rgb: 241, 245, 249;
+  --panel: rgba(255, 255, 255, 0.85);
+  --panel-solid: #ffffff;
+  --panel-solid-rgb: 255, 255, 255;
+  --panel-hover: #f8fafc;
+  --panel-hover-rgb: 248, 250, 252;
+  --stroke: rgba(15, 23, 42, 0.1);
+  --stroke-strong: rgba(15, 23, 42, 0.2);
+  --text-main: #0f172a;
+  --text-soft: #475569;
+  --text-dim: #64748b;
+  --focus: #0ea5e9;
+  --brand: #0284c7;
+  --brand-rgb: 2, 132, 199;
+  --brand-strong: #0369a1;
+  --danger: #ef4444;
+  --danger-rgb: 239, 68, 68;
+  --success: #10b981;
+  --success-rgb: 16, 185, 129;
+  --shadow-panel: 0 8px 30px rgba(0, 0, 0, 0.08);
 }
 
 .app,
@@ -38,13 +71,13 @@
   place-items: center;
   padding: 22px;
   background:
-    radial-gradient(900px 500px at -10% -20%, rgba(45, 180, 201, 0.14), transparent 60%),
-    radial-gradient(700px 420px at 110% 120%, rgba(53, 203, 135, 0.14), transparent 60%);
+    radial-gradient(900px 500px at -10% -20%, rgba(var(--brand-rgb), 0.14), transparent 60%),
+    radial-gradient(700px 420px at 110% 120%, rgba(var(--success-rgb), 0.14), transparent 60%);
 }
 
 .loading-card {
   width: min(92vw, 450px);
-  background: linear-gradient(170deg, rgba(19, 36, 43, 0.88), rgba(12, 25, 30, 0.9));
+  background: linear-gradient(170deg, rgba(var(--panel-solid-rgb), 0.88), rgba(var(--app-bg-soft-rgb), 0.9));
   border: 1px solid var(--stroke);
   border-radius: 22px;
   box-shadow: var(--shadow-panel);
@@ -80,7 +113,7 @@
   height: 46px;
   border-radius: 12px;
   border: 1px solid var(--stroke);
-  background: rgba(19, 36, 43, 0.7);
+  background: rgba(var(--panel-solid-rgb), 0.7);
   -webkit-backdrop-filter: blur(8px);
   backdrop-filter: blur(8px);
   padding: 0 44px;
@@ -95,7 +128,7 @@
 
 .search-input:focus {
   border-color: var(--focus);
-  box-shadow: 0 0 0 3px rgba(57, 178, 200, 0.18);
+  box-shadow: 0 0 0 3px rgba(var(--brand-rgb), 0.18);
 }
 
 .search-clear {

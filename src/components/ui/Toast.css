@@ -5,7 +5,7 @@
   bottom: 24px;
   transform: translateX(-50%);
   background: rgba(18, 58, 43, 0.94);
-  border: 1px solid rgba(53, 203, 135, 0.36);
+  border: 1px solid rgba(var(--success-rgb), 0.36);
   border-radius: var(--radius-pill);
   color: #7ff0b5;
   padding: 11px 16px;
