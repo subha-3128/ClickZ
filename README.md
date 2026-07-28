@@ -26,38 +26,6 @@
 - **Authentication**: Supabase Auth (Google OAuth)
 - **Deployment**: Vercel
 - **Assets**: Dynamic SVGs via Iconify MDI
-
-## 🚀 Getting Started Locally
-
-### Prerequisites
-- Node.js (v18+)
-- A Supabase Project with Google OAuth configured.
-
-### Installation
-
-1. **Clone the repository**
-   ```bash
-   git clone https://github.com/subha-3128/ClickZ.git
-   cd ClickZ
-   ```
-
-2. **Install dependencies**
-   ```bash
-   npm install
-   ```
-
-3. **Environment Variables**
-   Create a `.env` file in the root directory and add your Supabase keys:
-   ```env
-   VITE_SUPABASE_URL=your-supabase-project-url
-   VITE_SUPABASE_ANON_KEY=your-supabase-anon-key
-   ```
-
-4. **Run the development server**
-   ```bash
-   npm run dev
-   ```
-
 ## 👨‍💻 Author
 
 **Subhajit Bepari**
