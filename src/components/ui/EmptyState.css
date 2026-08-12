@@ -6,30 +6,39 @@
   justify-content: center;
   flex-direction: column;
   text-align: center;
+  padding: 40px 20px;
+  background: var(--panel-solid);
+  border: 1px solid var(--stroke);
+  border-radius: var(--radius-card);
+  box-shadow: var(--clay-card-shadow);
 }
 
 .empty-state-icon {
-  width: 62px;
-  height: 62px;
-  border-radius: 16px;
+  width: 72px;
+  height: 72px;
+  border-radius: 20px;
   display: grid;
   place-items: center;
-  color: var(--text-main);
-  background: linear-gradient(145deg, rgba(var(--brand-rgb), 0.28), rgba(var(--success-rgb), 0.18));
-  border: 1px solid rgba(128, 189, 200, 0.3);
-  margin-bottom: 15px;
+  color: var(--brand);
+  background: var(--panel-hover);
+  box-shadow: var(--clay-badge-shadow);
+  border: 1px solid var(--stroke);
+  margin-bottom: 18px;
 }
 
 .empty-state-icon svg {
-  width: 24px;
-  height: 24px;
+  width: 28px;
+  height: 28px;
 }
 
 .empty-state h2 {
   margin-bottom: 8px;
   color: var(--text-main);
+  font-weight: 800;
 }
 
 .empty-state p {
   color: var(--text-soft);
+  font-size: 0.95rem;
 }
+

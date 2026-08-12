@@ -1,0 +1,6 @@
+# Allow crawling of all public content
+User-agent: *
+Allow: /
+
+# Sitemap URL
+Sitemap: https://click-z.vercel.app/sitemap.xml

@@ -6,101 +6,130 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 18px 0 14px;
-  margin-bottom: 14px;
-  background: linear-gradient(to bottom, rgba(var(--app-bg-rgb), 0.96) 70%, transparent);
-  -webkit-backdrop-filter: blur(12px);
-  backdrop-filter: blur(12px);
+  padding: 22px 0 16px;
+  margin-bottom: 18px;
+  background: linear-gradient(to bottom, rgba(var(--app-bg-rgb), 0.96) 75%, transparent);
+  -webkit-backdrop-filter: blur(14px);
+  backdrop-filter: blur(14px);
 }
 
 .header-brand {
   display: flex;
   align-items: center;
-  gap: 11px;
+  gap: 14px;
 }
 
 .header-logo {
-  width: 38px;
-  height: 38px;
+  width: 44px;
+  height: 44px;
   object-fit: contain;
+  filter: drop-shadow(0 6px 12px rgba(0, 0, 0, 0.35));
+  transition: transform 300ms cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.header-logo:hover {
+  transform: rotate(-8deg) scale(1.1);
 }
 
 .header h1 {
-  font-size: clamp(1.16rem, 2vw, 1.4rem);
-  letter-spacing: -0.02em;
+  font-size: clamp(1.3rem, 2.4vw, 1.6rem);
+  letter-spacing: -0.03em;
   color: var(--text-main);
+  font-weight: 800;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
 }
 
 .header-actions {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 12px;
 }
 
 .btn-add,
 .btn-logout {
-  height: 38px;
+  height: 44px;
   border-radius: var(--radius-pill);
-  padding: 0 14px;
+  padding: 0 18px;
   border: 1px solid var(--stroke);
   color: var(--text-main);
-  font-size: 12px;
+  font-size: 0.92rem;
   font-weight: 700;
   cursor: pointer;
-  transition: all 180ms ease;
+  transition: transform 200ms cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 200ms ease, background 200ms ease;
+  user-select: none;
 }
 
 .btn-add {
   display: inline-flex;
   align-items: center;
-  gap: 6px;
-  background: linear-gradient(165deg, var(--brand) 0%, var(--brand-strong) 100%);
-  border-color: transparent;
+  gap: 8px;
+  background: var(--clay-btn-brand-bg);
+  border-color: rgba(255, 255, 255, 0.4);
   color: #031318;
-  box-shadow: 0 8px 20px rgba(var(--brand-rgb), 0.28);
+  box-shadow: var(--clay-btn-brand-shadow);
 }
 
 .btn-add:hover {
-  transform: translateY(-1px);
-  box-shadow: 0 12px 24px rgba(var(--brand-rgb), 0.35);
+  transform: translateY(-3px) scale(1.03);
+  box-shadow: var(--clay-btn-brand-hover-shadow);
+}
+
+.btn-add:active {
+  transform: translateY(2px) scale(0.96);
+  box-shadow: inset 3px 3px 6px rgba(0, 50, 150, 0.6);
 }
 
 .btn-add svg {
-  width: 14px;
-  height: 14px;
+  width: 16px;
+  height: 16px;
 }
 
 .btn-logout {
   background: var(--panel-solid);
+  box-shadow: var(--clay-btn-shadow);
 }
 
 .btn-logout:hover {
+  transform: translateY(-3px) scale(1.02);
   background: var(--panel-hover);
   border-color: var(--stroke-strong);
+  box-shadow: var(--clay-card-hover-shadow);
+}
+
+.btn-logout:active {
+  transform: translateY(2px) scale(0.96);
+  box-shadow: var(--clay-btn-active-shadow);
 }
 
 .btn-theme-toggle {
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 38px;
-  height: 38px;
+  width: 44px;
+  height: 44px;
   border-radius: 50%;
   border: 1px solid var(--stroke);
   background: var(--panel-solid);
+  box-shadow: var(--clay-btn-shadow);
   color: var(--text-main);
   cursor: pointer;
-  transition: all 180ms ease;
+  transition: transform 200ms cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 200ms ease, background 200ms ease;
 }
 
 .btn-theme-toggle:hover {
+  transform: translateY(-3px) scale(1.06);
   background: var(--panel-hover);
   border-color: var(--stroke-strong);
 }
 
+.btn-theme-toggle:active {
+  transform: translateY(2px) scale(0.94);
+  box-shadow: var(--clay-btn-active-shadow);
+}
+
 .btn-theme-toggle svg {
-  width: 18px;
-  height: 18px;
+  width: 20px;
+  height: 20px;
 }
 
 .profile-container {
@@ -109,15 +138,16 @@
 
 .profile-dropdown {
   position: absolute;
-  top: calc(100% + 8px);
+  top: calc(100% + 12px);
   right: 0;
-  background: var(--panel-solid);
+  background: var(--clay-card-bg);
   border: 1px solid var(--stroke);
-  border-radius: 12px;
-  padding: 8px;
-  box-shadow: var(--shadow-panel);
+  border-radius: 20px;
+  padding: 12px;
+  box-shadow: var(--clay-card-hover-shadow);
   z-index: 50;
-  min-width: 120px;
+  min-width: 140px;
+  animation: slideDown 180ms ease both;
 }
 
 .profile-dropdown .btn-logout {
@@ -125,18 +155,30 @@
 }
 
 .profile-chip {
-  width: 38px;
-  height: 38px;
+  width: 44px;
+  height: 44px;
   border-radius: 50%;
   overflow: hidden;
   border: 1px solid var(--stroke);
   background: var(--panel-solid);
+  box-shadow: var(--clay-badge-shadow);
   color: var(--text-main);
   display: grid;
   place-items: center;
-  font-size: 12px;
+  font-size: 14px;
   font-weight: 800;
   cursor: pointer;
+  transition: transform 200ms cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 200ms ease;
+}
+
+.profile-chip:hover {
+  transform: translateY(-3px) scale(1.06);
+  border-color: var(--stroke-strong);
+}
+
+.profile-chip:active {
+  transform: translateY(2px) scale(0.94);
+  box-shadow: var(--clay-btn-active-shadow);
 }
 
 .profile-chip img {
@@ -150,7 +192,7 @@
     position: relative;
     align-items: flex-start;
     flex-direction: column;
-    gap: 10px;
+    gap: 14px;
   }
 
   .header-actions {
@@ -165,7 +207,9 @@
 
   .profile-container {
     position: absolute;
-    top: 18px;
+    top: 22px;
     right: 0;
   }
 }
+
+

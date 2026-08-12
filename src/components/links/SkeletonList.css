@@ -9,19 +9,21 @@
   display: flex;
   align-items: center;
   gap: 12px;
-  min-height: 69px;
+  min-height: 72px;
   border-radius: var(--radius-card);
   border: 1px solid var(--stroke);
-  padding: 13px 14px;
-  background: rgba(var(--panel-solid-rgb), 0.9);
+  padding: 13px 16px;
+  background: var(--panel-solid);
+  box-shadow: var(--clay-card-shadow);
 }
 
 .skeleton-logo {
-  width: 43px;
-  height: 43px;
-  border-radius: 12px;
-  background: #5e7379;
-  opacity: 0.55;
+  width: 46px;
+  height: 46px;
+  border-radius: 14px;
+  background: var(--panel-hover);
+  box-shadow: var(--clay-badge-shadow);
+  opacity: 0.75;
   flex-shrink: 0;
 }
 

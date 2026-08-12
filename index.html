@@ -2,18 +2,88 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    
+    <!-- Primary Meta Tags -->
+    <title>ClickZ — Minimal, Fast & Secure Link Manager</title>
+    <meta name="title" content="ClickZ — Minimal, Fast & Secure Link Manager" />
+    <meta name="description" content="ClickZ is a minimal, blazing fast, and secure link management app. Organize, search, and access your favorite links with instant search, PWA offline support, and smart logos." />
+    <meta name="keywords" content="ClickZ, link manager, bookmark manager, link organizer, URL saver, fast link manager, PWA bookmark manager, Subhajit Bepari" />
+    <meta name="author" content="Subhajit Bepari" />
+    <meta name="robots" content="index, follow, max-image-preview:large" />
+    <meta name="application-name" content="ClickZ" />
+    <link rel="canonical" href="https://click-z.vercel.app/" />
+
+    <!-- Favicon & PWA Icons -->
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="manifest" href="/manifest.webmanifest" />
     <link rel="apple-touch-icon" href="/pwa-192.png" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
-    <meta name="description" content="ClickZ - A simple, elegant link manager to store and organize your favorite links" />
     <meta name="theme-color" content="#071014" />
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="apple-mobile-web-app-title" content="ClickZ" />
+
+    <!-- Open Graph / Facebook / LinkedIn / Discord / Slack -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://click-z.vercel.app/" />
+    <meta property="og:title" content="ClickZ — Minimal, Fast & Secure Link Manager" />
+    <meta property="og:description" content="Organize, search, and access all your essential links effortlessly with ClickZ. Instant search, PWA offline support, and smart logo previews." />
+    <meta property="og:image" content="https://click-z.vercel.app/og-image.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="ClickZ — Minimal, Fast & Secure Link Manager Preview" />
+    <meta property="og:site_name" content="ClickZ" />
+    <meta property="og:locale" content="en_US" />
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:url" content="https://click-z.vercel.app/" />
+    <meta name="twitter:title" content="ClickZ — Minimal, Fast & Secure Link Manager" />
+    <meta name="twitter:description" content="Organize, search, and access all your essential links effortlessly with ClickZ. Instant search, PWA offline support, and smart logo previews." />
+    <meta name="twitter:image" content="https://click-z.vercel.app/og-image.png" />
+    <meta name="twitter:creator" content="@subha-3128" />
+
+    <!-- Google Fonts Preconnect -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-    <title>ClickZ — Link Manager</title>
+
+    <!-- Schema.org Structured Data (JSON-LD) -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        "name": "ClickZ",
+        "alternateName": "ClickZ Link Manager",
+        "url": "https://click-z.vercel.app/",
+        "image": "https://click-z.vercel.app/og-image.png",
+        "description": "ClickZ is a minimal, blazing fast, and secure link management tool. Save, organize, edit, and instantly search your favorite links.",
+        "applicationCategory": "BookmarkManagerApplication",
+        "operatingSystem": "All",
+        "browserRequirements": "Requires JavaScript. Requires HTML5.",
+        "author": {
+          "@type": "Person",
+          "name": "Subhajit Bepari",
+          "url": "https://www.linkedin.com/in/subhajit-bepari/",
+          "sameAs": [
+            "https://github.com/subha-3128",
+            "https://www.linkedin.com/in/subhajit-bepari/"
+          ]
+        },
+        "offers": {
+          "@type": "Offer",
+          "price": "0",
+          "priceCurrency": "USD"
+        },
+        "featureList": [
+          "Secure Google OAuth Authentication",
+          "Smart Auto-Logo Retrieval via Iconify API",
+          "Instant Real-Time Link Filtering",
+          "Progressive Web App (PWA) Offline Support",
+          "Responsive Dark/Light Glassmorphism UI"
+        ]
+      }
+    </script>
   </head>
   <body>
     <div id="root"></div>
