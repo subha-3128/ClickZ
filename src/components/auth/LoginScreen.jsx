@@ -26,7 +26,7 @@ export function LoginScreen({ onLogin, isAuthenticating }) {
           </div>
           <div className="credit-social-links">
             <a
-              href="https://github.com/subha-3128/ClickZ"
+              href="https://github.com/subha-3128"
               target="_blank"
               rel="noopener noreferrer"
               className="credit-social-btn"

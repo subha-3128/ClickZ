@@ -12,10 +12,6 @@
   <br />
 
   [🌐 **Explore Live App**](https://click-z.vercel.app/) • [🐛 **Report an Issue**](https://github.com/subha-3128/ClickZ/issues) • [👨‍💻 **Connect with Author**](https://www.linkedin.com/in/subhajit-bepari/)
-
-  <br />
-
-  <img src="public/og-image.png" alt="ClickZ Open Graph Social Card Banner" width="100%" style="border-radius: 16px;" />
 </div>
 
 ---
