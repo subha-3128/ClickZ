@@ -3,7 +3,7 @@ import { getAutoLogoCandidates, getInitials } from '../../utils/helpers';
 import { IconPencil, IconTrash, IconCopy, IconCheck, IconExternalLink } from '../ui/Icons';
 import './LinkCard.css';
 
-export function LinkCard({ item, onCopy, onEdit, onDelete }) {
+export function LinkCard({ item, index = 0, onCopy, onEdit, onDelete }) {
   const [failedLogos, setFailedLogos] = useState({});
   const [confirmDelete, setConfirmDelete] = useState(false);
   const [copied, setCopied] = useState(false);
@@ -51,7 +51,10 @@ export function LinkCard({ item, onCopy, onEdit, onDelete }) {
   }
 
   return (
-    <div className={`link-card ${copied ? 'copied' : ''}`}>
+    <div
+      className={`link-card ${copied ? 'copied' : ''}`}
+      style={{ animationDelay: `${Math.min(index, 12) * 45}ms` }}
+    >
       <button
         className="link-card-main"
         onClick={handleCardClick}

@@ -33,7 +33,11 @@
 @keyframes toastIn {
   0% {
     opacity: 0;
-    transform: translate(-50%) translateY(20px) scale(0.9);
+    transform: translate(-50%) translateY(24px) scale(0.88);
+  }
+  65% {
+    opacity: 1;
+    transform: translate(-50%) translateY(-3px) scale(1.02);
   }
   100% {
     opacity: 1;
@@ -48,7 +52,7 @@
   }
   100% {
     opacity: 0;
-    transform: translate(-50%) translateY(20px) scale(0.9);
+    transform: translate(-50%) translateY(16px) scale(0.92);
   }
 }
 

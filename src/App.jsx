@@ -286,9 +286,10 @@ export default function App() {
             <SkeletonList count={6} />
           ) : filteredLinks.length > 0 ? (
             <div className="link-list">
-              {filteredLinks.map((item) => (
+              {filteredLinks.map((item, index) => (
                 <LinkCard
                   key={item.id}
+                  index={index}
                   item={item}
                   onCopy={handleCopy}
                   onEdit={(link) => setEditingLink(link)}
