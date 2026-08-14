@@ -28,10 +28,7 @@ export function Header({ user, onLogout, onAddLink, theme, toggleTheme }) {
         <button className="btn-theme-toggle" onClick={toggleTheme} aria-label="Toggle theme">
           {theme === 'dark' ? <IconSun /> : <IconMoon />}
         </button>
-        <button className="btn-add" onClick={onAddLink}>
-          <IconPlus />
-          Add
-        </button>
+
         <div className="profile-container" ref={containerRef}>
           <button
             className="profile-chip"
@@ -57,7 +54,13 @@ export function Header({ user, onLogout, onAddLink, theme, toggleTheme }) {
             </div>
           )}
         </div>
+
+        <button className="btn-add" onClick={onAddLink}>
+          <IconPlus />
+          Add
+        </button>
       </div>
     </header>
   );
 }
+
