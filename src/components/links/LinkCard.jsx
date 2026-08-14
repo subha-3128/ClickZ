@@ -1,11 +1,12 @@
 import { useState, useMemo } from 'react';
 import { getAutoLogoCandidates, getInitials } from '../../utils/helpers';
-import { IconPencil, IconTrash, IconCopy } from '../ui/Icons';
+import { IconPencil, IconTrash, IconCopy, IconCheck, IconExternalLink } from '../ui/Icons';
 import './LinkCard.css';
 
 export function LinkCard({ item, onCopy, onEdit, onDelete }) {
   const [failedLogos, setFailedLogos] = useState({});
   const [confirmDelete, setConfirmDelete] = useState(false);
+  const [copied, setCopied] = useState(false);
 
   const logoCandidates = useMemo(
     () => getAutoLogoCandidates(item.name, item.custom_id, item.link),
@@ -16,6 +17,12 @@ export function LinkCard({ item, onCopy, onEdit, onDelete }) {
   function handleLogoError() {
     if (!logoUrl) return;
     setFailedLogos((prev) => ({ ...prev, [logoUrl]: true }));
+  }
+
+  function handleCardClick() {
+    onCopy(item.link);
+    setCopied(true);
+    setTimeout(() => setCopied(false), 1600);
   }
 
   if (confirmDelete) {
@@ -44,11 +51,12 @@ export function LinkCard({ item, onCopy, onEdit, onDelete }) {
   }
 
   return (
-    <div className="link-card">
+    <div className={`link-card ${copied ? 'copied' : ''}`}>
       <button
         className="link-card-main"
-        onClick={() => onCopy(item.link)}
+        onClick={handleCardClick}
         title="Click to copy link"
+        aria-label={`Copy link for ${item.name}`}
       >
         <div className={`link-card-logo ${logoUrl ? '' : 'fallback'}`}>
           {logoUrl ? (
@@ -59,14 +67,26 @@ export function LinkCard({ item, onCopy, onEdit, onDelete }) {
         </div>
         <div className="link-card-info">
           <div className="link-card-name">{item.name}</div>
-          <div className="link-card-id">{item.custom_id}</div>
+          <div className="link-card-id">
+            <span className="link-card-id-pill">@{item.custom_id}</span>
+          </div>
         </div>
-        <div className="link-card-copy-hint" aria-hidden="true">
-          <IconCopy />
+        <div className={`link-card-copy-hint ${copied ? 'copied' : ''}`} aria-hidden="true">
+          {copied ? <IconCheck /> : <IconCopy />}
         </div>
       </button>
 
       <div className="link-card-actions">
+        <a
+          href={item.link}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="link-card-action-btn link-card-action-btn--open"
+          title="Open link in new tab"
+          aria-label={`Open ${item.name} in new tab`}
+        >
+          <IconExternalLink />
+        </a>
         <button
           className="link-card-action-btn link-card-action-btn--edit"
           onClick={() => onEdit(item)}
@@ -87,3 +107,4 @@ export function LinkCard({ item, onCopy, onEdit, onDelete }) {
     </div>
   );
 }
+

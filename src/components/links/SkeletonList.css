@@ -1,29 +1,33 @@
-/* ---------- Skeleton ---------- */
+/* ---------- Liquid Glass Skeleton Loaders ---------- */
 .skeleton-list {
   display: grid;
   grid-template-columns: 1fr;
-  gap: 10px;
+  gap: 16px;
 }
 
 .skeleton-card {
   display: flex;
   align-items: center;
-  gap: 12px;
-  min-height: 72px;
+  gap: 14px;
+  min-height: 76px;
   border-radius: var(--radius-card);
-  border: 1px solid var(--stroke);
-  padding: 13px 16px;
-  background: var(--panel-solid);
-  box-shadow: var(--clay-card-shadow);
+  border: 1px solid var(--glass-border);
+  padding: 14px 18px;
+  background: var(--glass-bg);
+  -webkit-backdrop-filter: var(--glass-blur);
+  backdrop-filter: var(--glass-blur);
+  box-shadow: var(--glass-shadow);
+  position: relative;
+  overflow: hidden;
 }
 
 .skeleton-logo {
-  width: 46px;
-  height: 46px;
-  border-radius: 14px;
-  background: var(--panel-hover);
-  box-shadow: var(--clay-badge-shadow);
-  opacity: 0.75;
+  width: 50px;
+  height: 50px;
+  border-radius: 16px;
+  background: var(--glass-bg-solid);
+  border: 1px solid var(--glass-border-strong);
+  opacity: 0.8;
   flex-shrink: 0;
 }
 
@@ -31,14 +35,14 @@
   flex: 1;
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 10px;
 }
 
 .skeleton-line {
-  height: 10px;
+  height: 12px;
   border-radius: var(--radius-pill);
-  background: #6f858c;
-  opacity: 0.45;
+  background: var(--text-dim);
+  opacity: 0.35;
 }
 
 .skeleton-line-name {
@@ -59,8 +63,13 @@
   position: absolute;
   inset: 0;
   transform: translateX(-100%);
-  background: linear-gradient(90deg, transparent, rgba(232, 243, 245, 0.2), transparent);
-  animation: shimmerMove 1.4s ease infinite;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0.25) 50%,
+    transparent 100%
+  );
+  animation: shimmerMove 1.6s ease infinite;
 }
 
 @keyframes shimmerMove {
@@ -69,20 +78,3 @@
   }
 }
 
-@media (min-width: 900px) {
-  .skeleton-list {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-}
-
-@media (min-width: 1200px) {
-  .skeleton-list {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-  }
-}
-
-@media (min-width: 1500px) {
-  .skeleton-list {
-    grid-template-columns: repeat(4, minmax(0, 1fr));
-  }
-}

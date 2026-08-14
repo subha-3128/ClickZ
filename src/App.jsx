@@ -225,6 +225,11 @@ export default function App() {
   if (authLoading) {
     return (
       <div className="loading-screen">
+        <div className="liquid-bg-container">
+          <div className="liquid-orb liquid-orb-1" />
+          <div className="liquid-orb liquid-orb-2" />
+          <div className="liquid-orb liquid-orb-3" />
+        </div>
         <div className="loading-card">Checking session...</div>
       </div>
     );
@@ -233,6 +238,12 @@ export default function App() {
   if (!user) {
     return (
       <>
+        <div className="liquid-bg-container">
+          <div className="liquid-orb liquid-orb-1" />
+          <div className="liquid-orb liquid-orb-2" />
+          <div className="liquid-orb liquid-orb-3" />
+          <div className="liquid-orb liquid-orb-4" />
+        </div>
         <LoginScreen onLogin={handleLogin} isAuthenticating={authenticating} />
         {toast.msg && <Toast key={toast.id} message={toast.msg} onDone={() => setToast((prev) => ({ ...prev, msg: null }))} />}
         <SpeedInsights />
@@ -241,59 +252,67 @@ export default function App() {
   }
 
   return (
-    <div className="app">
-      <Header user={user} onLogout={handleLogout} onAddLink={() => setShowModal(true)} theme={theme} toggleTheme={toggleTheme} />
+    <>
+      <div className="liquid-bg-container">
+        <div className="liquid-orb liquid-orb-1" />
+        <div className="liquid-orb liquid-orb-2" />
+        <div className="liquid-orb liquid-orb-3" />
+        <div className="liquid-orb liquid-orb-4" />
+      </div>
 
+      <div className="app">
+        <Header user={user} onLogout={handleLogout} onAddLink={() => setShowModal(true)} theme={theme} toggleTheme={toggleTheme} />
 
-      {links.length > 0 && !linksLoading && (
-        <div className="search-container">
-          <span className="search-icon"><IconSearch /></span>
-          <input
-            className="search-input"
-            type="text"
-            placeholder="Search links..."
-            value={search}
-            onChange={(event) => setSearch(event.target.value)}
-          />
-          {search && (
-            <button className="search-clear" onClick={() => setSearch('')} aria-label="Clear search">
-              <IconX />
-            </button>
-          )}
-        </div>
-      )}
-
-      <main className="content-area">
-        {linksLoading ? (
-          <SkeletonList count={6} />
-        ) : filteredLinks.length > 0 ? (
-          <div className="link-list">
-            {filteredLinks.map((item) => (
-              <LinkCard
-                key={item.id}
-                item={item}
-                onCopy={handleCopy}
-                onEdit={(link) => setEditingLink(link)}
-                onDelete={handleDeleteLink}
-              />
-            ))}
+        {links.length > 0 && !linksLoading && (
+          <div className="search-container">
+            <span className="search-icon"><IconSearch /></span>
+            <input
+              className="search-input"
+              type="text"
+              placeholder="Search links..."
+              value={search}
+              onChange={(event) => setSearch(event.target.value)}
+            />
+            {search && (
+              <button className="search-clear" onClick={() => setSearch('')} aria-label="Clear search">
+                <IconX />
+              </button>
+            )}
           </div>
-        ) : (
-          <EmptyState />
         )}
-      </main>
 
-      {(showModal || editingLink) && (
-        <LinkForm
-          onSave={showModal ? handleAddLink : handleUpdateLink}
-          onCancel={() => { setShowModal(false); setEditingLink(null); }}
-          saving={saving}
-          initialData={editingLink}
-        />
-      )}
+        <main className="content-area">
+          {linksLoading ? (
+            <SkeletonList count={6} />
+          ) : filteredLinks.length > 0 ? (
+            <div className="link-list">
+              {filteredLinks.map((item) => (
+                <LinkCard
+                  key={item.id}
+                  item={item}
+                  onCopy={handleCopy}
+                  onEdit={(link) => setEditingLink(link)}
+                  onDelete={handleDeleteLink}
+                />
+              ))}
+            </div>
+          ) : (
+            <EmptyState />
+          )}
+        </main>
 
-      {toast.msg && <Toast key={toast.id} message={toast.msg} onDone={() => setToast((prev) => ({ ...prev, msg: null }))} />}
-      <SpeedInsights />
-    </div>
+        {(showModal || editingLink) && (
+          <LinkForm
+            onSave={showModal ? handleAddLink : handleUpdateLink}
+            onCancel={() => { setShowModal(false); setEditingLink(null); }}
+            saving={saving}
+            initialData={editingLink}
+          />
+        )}
+
+        {toast.msg && <Toast key={toast.id} message={toast.msg} onDone={() => setToast((prev) => ({ ...prev, msg: null }))} />}
+        <SpeedInsights />
+      </div>
+    </>
   );
 }

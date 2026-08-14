@@ -1,4 +1,4 @@
-/* ---------- Empty State ---------- */
+/* ---------- Liquid Glass Empty State ---------- */
 .empty-state {
   min-height: 320px;
   display: flex;
@@ -6,39 +6,63 @@
   justify-content: center;
   flex-direction: column;
   text-align: center;
-  padding: 40px 20px;
-  background: var(--panel-solid);
-  border: 1px solid var(--stroke);
+  padding: 42px 24px;
+  background: var(--glass-bg);
+  -webkit-backdrop-filter: var(--glass-blur);
+  backdrop-filter: var(--glass-blur);
+  border: 1px solid var(--glass-border);
   border-radius: var(--radius-card);
-  box-shadow: var(--clay-card-shadow);
+  box-shadow: var(--glass-shadow);
+  position: relative;
+  overflow: hidden;
+}
+
+.empty-state::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: var(--glass-shine);
+  pointer-events: none;
+  opacity: 0.6;
 }
 
 .empty-state-icon {
-  width: 72px;
-  height: 72px;
-  border-radius: 20px;
+  width: 76px;
+  height: 76px;
+  border-radius: 24px;
   display: grid;
   place-items: center;
   color: var(--brand);
-  background: var(--panel-hover);
-  box-shadow: var(--clay-badge-shadow);
-  border: 1px solid var(--stroke);
-  margin-bottom: 18px;
+  background: var(--glass-bg-solid);
+  -webkit-backdrop-filter: var(--glass-blur);
+  backdrop-filter: var(--glass-blur);
+  box-shadow: 0 8px 24px var(--brand-glow), inset 0 1.5px 2px rgba(255, 255, 255, 0.7);
+  border: 1.5px solid var(--glass-border-strong);
+  margin-bottom: 20px;
+  position: relative;
+  z-index: 1;
 }
 
 .empty-state-icon svg {
-  width: 28px;
-  height: 28px;
+  width: 30px;
+  height: 30px;
+  filter: drop-shadow(0 2px 8px var(--brand-glow));
 }
 
 .empty-state h2 {
   margin-bottom: 8px;
   color: var(--text-main);
   font-weight: 800;
+  font-size: 1.25rem;
+  position: relative;
+  z-index: 1;
 }
 
 .empty-state p {
   color: var(--text-soft);
-  font-size: 0.95rem;
+  font-size: 0.96rem;
+  position: relative;
+  z-index: 1;
 }
+
 

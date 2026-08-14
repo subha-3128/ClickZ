@@ -1,150 +1,210 @@
+/* ===================================================
+   CLICKZ — Liquid Glass App & Tokens
+   =================================================== */
+
 :root {
-  --app-bg: #08131a;
-  --app-bg-rgb: 8, 19, 26;
-  --app-bg-soft: #0e1e28;
-  --app-bg-soft-rgb: 14, 30, 40;
-  --panel: #132731;
-  --panel-solid: #132731;
-  --panel-solid-rgb: 19, 39, 49;
-  --panel-hover: #19313d;
-  --panel-hover-rgb: 25, 49, 61;
-  --stroke: rgba(255, 255, 255, 0.12);
-  --stroke-strong: rgba(255, 255, 255, 0.25);
-  --text-main: #f0f8fa;
-  --text-soft: #9bbbc2;
-  --text-dim: #73939a;
-  --focus: #00d2ff;
-  --brand: #00b4d8;
-  --brand-rgb: 0, 180, 216;
-  --brand-strong: #0077b6;
-  --danger: #ff5252;
-  --danger-rgb: 255, 82, 82;
-  --success: #00e676;
-  --success-rgb: 0, 230, 118;
-  --radius-card: 26px;
-  --radius-pill: 999px;
+  /* ---------- 🌙 Dark Liquid Glass Theme Tokens ---------- */
+  --app-bg: #08121C;
+  --app-bg-rgb: 8, 18, 28;
 
-  /* ---------- Bold 3D Claymorphism Dark Tokens ---------- */
-  --clay-card-bg: linear-gradient(150deg, #18313d 0%, #0f1f28 100%);
-  --clay-card-shadow: 
-    inset 3px 3px 6px rgba(255, 255, 255, 0.22),
-    inset -4px -4px 8px rgba(0, 0, 0, 0.65),
-    12px 20px 36px rgba(2, 10, 14, 0.65),
-    2px 4px 10px rgba(0, 0, 0, 0.3);
+  --glass-bg: rgba(20, 36, 50, 0.55); /* Glass Surface #142432 */
+  --glass-bg-solid: #142432;
+  --glass-bg-hover: rgba(38, 58, 74, 0.7); /* Glass Highlight #263A4A */
 
-  --clay-card-hover-shadow: 
-    inset 4px 4px 8px rgba(255, 255, 255, 0.3),
-    inset -5px -5px 10px rgba(0, 0, 0, 0.75),
-    16px 26px 44px rgba(2, 10, 14, 0.75),
-    0 0 24px rgba(0, 180, 216, 0.25);
+  --glass-border: rgba(255, 255, 255, 0.12); /* Glass Border #FFFFFF 12% */
+  --glass-border-strong: rgba(255, 255, 255, 0.22);
+  --glass-border-glow: #20B8F2;
 
-  --clay-btn-brand-bg: linear-gradient(145deg, #00d2ff 0%, #0077ff 100%);
-  --clay-btn-brand-shadow: 
-    inset 3px 3px 6px rgba(255, 255, 255, 0.55),
-    inset -3px -3px 6px rgba(0, 70, 180, 0.5),
-    6px 14px 28px rgba(0, 140, 255, 0.45);
+  --glass-shine: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.3) 0%,
+    rgba(255, 255, 255, 0.03) 40%,
+    rgba(32, 184, 242, 0.15) 100%
+  );
 
-  --clay-btn-brand-hover-shadow: 
-    inset 4px 4px 8px rgba(255, 255, 255, 0.7),
-    inset -3px -3px 6px rgba(0, 60, 160, 0.6),
-    8px 18px 34px rgba(0, 140, 255, 0.6);
+  --glass-shadow: 
+    0 16px 40px rgba(0, 0, 0, 0.35),
+    inset 0 1px 1px 0 rgba(255, 255, 255, 0.25),
+    inset 0 -1px 2px 0 rgba(0, 0, 0, 0.5);
 
-  --clay-btn-shadow: 
-    inset 2px 2px 4px rgba(255, 255, 255, 0.25),
-    inset -3px -3px 6px rgba(0, 0, 0, 0.5),
-    5px 12px 24px rgba(0, 0, 0, 0.45);
+  --glass-shadow-hover: 
+    0 20px 50px rgba(32, 184, 242, 0.25),
+    0 10px 30px rgba(0, 0, 0, 0.4),
+    inset 0 1.5px 2px 0 rgba(255, 255, 255, 0.4);
 
-  --clay-btn-active-shadow: 
-    inset -2px -2px 4px rgba(255, 255, 255, 0.15),
-    inset 4px 4px 8px rgba(0, 0, 0, 0.7);
+  --glass-blur: blur(20px) saturate(190%) contrast(105%);
 
-  --clay-input-shadow: 
-    inset 4px 4px 8px rgba(0, 0, 0, 0.65),
-    inset -3px -3px 6px rgba(255, 255, 255, 0.12);
+  --primary: #20B8F2;
+  --primary-hover: #42C8F7;
+  --brand-purple: #8874FF;
+  --brand: #20B8F2;
+  --brand-rgb: 32, 184, 242;
+  --brand-glow: rgba(32, 184, 242, 0.35);
 
-  --clay-badge-shadow: 
-    inset 3px 3px 6px rgba(255, 255, 255, 0.35),
-    inset -3px -3px 6px rgba(0, 0, 0, 0.45),
-    4px 8px 18px rgba(0, 0, 0, 0.35);
+  --text-main: #F4FAFF;
+  --text-soft: #91A7B8;
+  --text-dim: #6F8799;
 
-  --shadow-panel: var(--clay-card-shadow);
+  --input-bg: #0F202D;
+  --accent-glow: #20B8F2;
+  --ambient-violet: #8874FF;
+  --favorite: #FFC857;
+  --success: #35D0AC;
+  --success-rgb: 53, 208, 172;
+  --danger: #FF737B;
+  --danger-rgb: 255, 115, 123;
+  --divider: rgba(255, 255, 255, 0.10);
+
+  --brand-gradient: linear-gradient(135deg, #20B8F2 0%, #8874FF 100%);
+  --brand-glass-btn: linear-gradient(135deg, #20B8F2 0%, #8874FF 100%);
+  --brand-glass-btn-hover: linear-gradient(135deg, #42C8F7 0%, #9B8CFF 100%);
+  --danger-glass-btn: linear-gradient(135deg, #FF737B 0%, #d63842 100%);
+
+  --radius-card: 28px;
+  --radius-pill: 9999px;
 }
 
 [data-theme="light"] {
-  --app-bg: #e2ecf5;
-  --app-bg-rgb: 226, 236, 245;
-  --panel: #f0f6fc;
-  --panel-solid: #f0f6fc;
-  --panel-solid-rgb: 240, 246, 252;
-  --panel-hover: #ffffff;
-  --panel-hover-rgb: 255, 255, 255;
-  --stroke: rgba(255, 255, 255, 0.9);
-  --stroke-strong: #ffffff;
-  --text-main: #0c1a24;
-  --text-soft: #42596b;
-  --text-dim: #647b8d;
-  --focus: #0284c7;
-  --brand: #0284c7;
-  --brand-rgb: 2, 132, 199;
-  --brand-strong: #0369a1;
+  /* ---------- ☀️ Light Liquid Glass Theme Tokens ---------- */
+  --app-bg: #E8F1F8;
+  --app-bg-rgb: 232, 241, 248;
 
-  /* ---------- Bold 3D Claymorphism Light Tokens ---------- */
-  --clay-card-bg: linear-gradient(150deg, #ffffff 0%, #dce7f2 100%);
-  --clay-card-shadow: 
-    inset 4px 4px 8px #ffffff,
-    inset -5px -5px 10px rgba(145, 168, 190, 0.45),
-    12px 22px 34px rgba(130, 152, 175, 0.38),
-    2px 4px 10px rgba(150, 170, 190, 0.2);
+  --glass-bg: rgba(247, 251, 255, 0.7); /* Glass Surface #F7FBFF */
+  --glass-bg-solid: #F7FBFF;
+  --glass-bg-hover: rgba(255, 255, 255, 0.9); /* Glass Highlight #FFFFFF */
 
-  --clay-card-hover-shadow: 
-    inset 5px 5px 10px #ffffff,
-    inset -5px -5px 10px rgba(130, 155, 178, 0.55),
-    16px 28px 42px rgba(118, 142, 166, 0.46),
-    0 0 24px rgba(2, 132, 199, 0.25);
+  --glass-border: rgba(255, 255, 255, 0.75); /* Glass Border #FFFFFF 75% */
+  --glass-border-strong: rgba(255, 255, 255, 0.95);
+  --glass-border-glow: #1597E5;
 
-  --clay-btn-brand-bg: linear-gradient(145deg, #38bdf8 0%, #0284c7 100%);
-  --clay-btn-brand-shadow: 
-    inset 3px 3px 6px rgba(255, 255, 255, 0.75),
-    inset -3px -3px 6px rgba(2, 85, 135, 0.45),
-    6px 14px 26px rgba(2, 132, 199, 0.38);
+  --glass-shine: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.95) 0%,
+    rgba(255, 255, 255, 0.3) 40%,
+    rgba(21, 151, 229, 0.2) 100%
+  );
 
-  --clay-btn-brand-hover-shadow: 
-    inset 4px 4px 8px rgba(255, 255, 255, 0.9),
-    inset -3px -3px 6px rgba(2, 75, 120, 0.55),
-    8px 18px 32px rgba(2, 132, 199, 0.5);
+  --glass-shadow: 
+    0 16px 40px rgba(120, 149, 168, 0.18),
+    inset 0 1.5px 2px 0 rgba(255, 255, 255, 0.95);
 
-  --clay-btn-shadow: 
-    inset 3px 3px 6px #ffffff,
-    inset -3px -3px 6px rgba(140, 162, 182, 0.4),
-    5px 10px 20px rgba(130, 150, 170, 0.3);
+  --glass-shadow-hover: 
+    0 22px 50px rgba(21, 151, 229, 0.22),
+    0 10px 30px rgba(120, 149, 168, 0.2),
+    inset 0 2px 3px 0 rgba(255, 255, 255, 1);
 
-  --clay-btn-active-shadow: 
-    inset -2px -2px 4px rgba(255, 255, 255, 0.8),
-    inset 4px 4px 8px rgba(130, 152, 172, 0.55);
+  --glass-blur: blur(20px) saturate(180%) contrast(100%);
 
-  --clay-input-shadow: 
-    inset 4px 4px 8px rgba(135, 158, 180, 0.45),
-    inset -3px -3px 6px #ffffff;
+  --primary: #1597E5;
+  --primary-hover: #087FD0;
+  --brand-purple: #7657F6;
+  --brand: #1597E5;
+  --brand-rgb: 21, 151, 229;
+  --brand-glow: rgba(99, 213, 255, 0.35);
 
-  --clay-badge-shadow: 
-    inset 3px 3px 6px #ffffff,
-    inset -3px -3px 6px rgba(135, 158, 180, 0.35),
-    4px 8px 16px rgba(130, 150, 170, 0.25);
+  --text-main: #102331;
+  --text-soft: #607789;
+  --text-dim: #8DA1B0;
 
-  --shadow-panel: var(--clay-card-shadow);
+  --input-bg: #EBF4FB;
+  --accent-glow: #63D5FF;
+  --ambient-violet: #9B8CFF;
+  --favorite: #F5B942;
+  --success: #26B99A;
+  --success-rgb: 38, 185, 154;
+  --danger: #EF6B73;
+  --danger-rgb: 239, 107, 115;
+  --divider: #D5E2EB;
+
+  --brand-gradient: linear-gradient(135deg, #1597E5 0%, #7657F6 100%);
+  --brand-glass-btn: linear-gradient(135deg, #1597E5 0%, #7657F6 100%);
+  --brand-glass-btn-hover: linear-gradient(135deg, #087FD0 0%, #6342e0 100%);
+  --danger-glass-btn: linear-gradient(135deg, #EF6B73 0%, #c43c44 100%);
 }
 
 .app,
 .loading-screen {
-  font-family: 'Manrope', 'Avenir Next', 'Segoe UI', sans-serif;
+  font-family: var(--font-family);
+}
+
+/* ---------- Liquid Ambient Background Canvas ---------- */
+.liquid-bg-container {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+  z-index: 0;
+}
+
+.liquid-orb {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(85px);
+  opacity: 0.55;
+  animation: floatLiquid 22s ease-in-out infinite alternate, liquidPulse 10s ease-in-out infinite alternate;
+  will-change: transform, filter, opacity;
+}
+
+.liquid-orb-1 {
+  width: 520px;
+  height: 520px;
+  top: -100px;
+  left: -80px;
+  background: radial-gradient(circle, rgba(32, 184, 242, 0.45) 0%, rgba(21, 151, 229, 0.2) 65%, transparent 100%);
+  animation-duration: 26s;
+}
+
+.liquid-orb-2 {
+  width: 580px;
+  height: 580px;
+  bottom: -150px;
+  right: -100px;
+  background: radial-gradient(circle, rgba(136, 116, 255, 0.4) 0%, rgba(118, 87, 246, 0.25) 60%, transparent 100%);
+  animation-duration: 30s;
+  animation-delay: -5s;
+}
+
+.liquid-orb-3 {
+  width: 420px;
+  height: 420px;
+  top: 35%;
+  left: 55%;
+  background: radial-gradient(circle, rgba(53, 208, 172, 0.35) 0%, rgba(32, 184, 242, 0.15) 70%, transparent 100%);
+  animation-duration: 20s;
+  animation-delay: -10s;
+}
+
+.liquid-orb-4 {
+  width: 360px;
+  height: 360px;
+  top: 15%;
+  right: 10%;
+  background: radial-gradient(circle, rgba(155, 140, 255, 0.3) 0%, rgba(32, 184, 242, 0.2) 65%, transparent 100%);
+  animation-duration: 24s;
+  animation-delay: -15s;
+}
+
+/* Light mode orb overrides */
+[data-theme="light"] .liquid-orb-1 {
+  background: radial-gradient(circle, rgba(56, 189, 248, 0.5) 0%, rgba(14, 165, 233, 0.2) 65%, transparent 100%);
+}
+
+[data-theme="light"] .liquid-orb-2 {
+  background: radial-gradient(circle, rgba(168, 85, 247, 0.4) 0%, rgba(236, 72, 153, 0.25) 60%, transparent 100%);
+}
+
+[data-theme="light"] .liquid-orb-3 {
+  background: radial-gradient(circle, rgba(52, 211, 153, 0.4) 0%, rgba(56, 189, 248, 0.2) 70%, transparent 100%);
 }
 
 /* ---------- App Shell ---------- */
 .app {
-  width: min(1120px, 100% - 36px);
+  width: min(var(--max-width), 100% - 36px);
   margin: 0 auto;
   min-height: 100vh;
-  padding: 0 0 42px;
+  padding: 0 0 54px;
+  position: relative;
+  z-index: 1;
 }
 
 .loading-screen {
@@ -152,107 +212,140 @@
   display: grid;
   place-items: center;
   padding: 22px;
-  background:
-    radial-gradient(900px 500px at -10% -20%, rgba(var(--brand-rgb), 0.2), transparent 60%),
-    radial-gradient(700px 420px at 110% 120%, rgba(var(--success-rgb), 0.2), transparent 60%);
+  position: relative;
+  z-index: 1;
 }
 
 .loading-card {
-  width: min(92vw, 450px);
-  background: var(--clay-card-bg);
-  border: 1px solid var(--stroke);
+  width: min(92vw, 420px);
+  background: var(--glass-bg);
+  -webkit-backdrop-filter: var(--glass-blur);
+  backdrop-filter: var(--glass-blur);
+  border: 1px solid var(--glass-border-strong);
   border-radius: var(--radius-card);
-  box-shadow: var(--clay-card-shadow);
+  box-shadow: var(--glass-shadow);
   padding: 38px;
   text-align: center;
   color: var(--text-main);
   font-weight: 700;
   font-size: 1.1rem;
   letter-spacing: 0.01em;
+  position: relative;
+  overflow: hidden;
+  animation: scaleIn 300ms cubic-bezier(0.34, 1.56, 0.64, 1) both;
 }
 
-/* ---------- Search ---------- */
+.loading-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: var(--glass-shine);
+  pointer-events: none;
+  opacity: 0.8;
+}
+
+/* ---------- Liquid Glass Search Container ---------- */
 .search-container {
   position: relative;
-  margin-bottom: 22px;
+  margin-bottom: 24px;
 }
 
 .search-icon {
   position: absolute;
-  left: 18px;
+  left: 20px;
   top: 50%;
   transform: translateY(-50%);
   color: var(--text-dim);
   pointer-events: none;
+  transition: color 200ms ease;
+  display: flex;
+  align-items: center;
 }
 
 .search-icon svg {
-  width: 18px;
-  height: 18px;
+  width: 19px;
+  height: 19px;
 }
 
 .search-input {
   width: 100%;
-  height: 52px;
-  border-radius: 18px;
-  border: 1px solid var(--stroke);
-  background: var(--panel-solid);
-  box-shadow: var(--clay-input-shadow);
-  padding: 0 48px;
+  height: 54px;
+  border-radius: 22px;
+  border: 1px solid var(--glass-border);
+  background: var(--glass-bg);
+  -webkit-backdrop-filter: var(--glass-blur);
+  backdrop-filter: var(--glass-blur);
+  box-shadow: var(--glass-shadow);
+  padding: 0 52px;
   color: var(--text-main);
-  font-size: 1rem;
-  font-weight: 500;
+  font-size: 0.98rem;
+  font-weight: 600;
   outline: none;
-  transition: border-color 200ms ease, box-shadow 200ms ease;
+  transition: all 250ms cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
 .search-input::placeholder {
   color: var(--text-dim);
+  font-weight: 500;
+}
+
+.search-input:hover {
+  border-color: var(--glass-border-strong);
+  background: var(--glass-bg-hover);
 }
 
 .search-input:focus {
-  border-color: var(--focus);
-  box-shadow: var(--clay-input-shadow), 0 0 0 4px rgba(0, 180, 216, 0.25);
+  border-color: var(--glass-border-glow);
+  background: var(--glass-bg-hover);
+  box-shadow: var(--glass-shadow-hover), 0 0 25px var(--brand-glow);
+}
+
+.search-container:focus-within .search-icon {
+  color: var(--brand);
 }
 
 .search-clear {
   position: absolute;
-  right: 12px;
+  right: 14px;
   top: 50%;
   transform: translateY(-50%);
-  width: 30px;
-  height: 30px;
+  width: 32px;
+  height: 32px;
   border-radius: 50%;
-  border: 1px solid var(--stroke);
-  background: var(--panel);
-  box-shadow: var(--clay-btn-shadow);
+  border: 1px solid var(--glass-border);
+  background: var(--glass-bg);
+  -webkit-backdrop-filter: var(--glass-blur);
+  backdrop-filter: var(--glass-blur);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2), inset 0 1px 1px rgba(255, 255, 255, 0.4);
   color: var(--text-dim);
   cursor: pointer;
   display: grid;
   place-items: center;
-  transition: transform 180ms ease, box-shadow 180ms ease, color 180ms ease;
+  transition: all 200ms cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
 .search-clear:hover {
-  transform: translateY(-50%) scale(1.08);
+  transform: translateY(-50%) scale(1.1);
   color: var(--text-main);
+  border-color: var(--glass-border-strong);
+  background: var(--glass-bg-hover);
 }
 
 .search-clear:active {
   transform: translateY(-50%) scale(0.92);
-  box-shadow: var(--clay-btn-active-shadow);
 }
 
-/* ---------- Content ---------- */
+/* ---------- Content Area ---------- */
 .content-area {
-  animation: fadeIn var(--transition-base) both;
+  animation: fadeIn 300ms ease both;
 }
 
 @media (max-width: 760px) {
   .app {
-    width: calc(100% - 20px);
-    padding-bottom: 24px;
+    width: calc(100% - 24px);
+    padding-bottom: 32px;
   }
 }
+
 
 
