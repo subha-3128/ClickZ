@@ -29,7 +29,9 @@ export function Header({ user, onLogout, onAddLink, theme, toggleTheme }) {
         {/* User Controls: Theme Toggle & Avatar */}
         <div className="header-controls">
           <button className="btn-theme-toggle" onClick={toggleTheme} aria-label="Toggle theme">
-            {theme === 'dark' ? <IconSun /> : <IconMoon />}
+            <span className={`theme-toggle-icon ${theme}`}>
+              {theme === 'dark' ? <IconSun /> : <IconMoon />}
+            </span>
           </button>
 
           <div className="profile-container" ref={containerRef}>

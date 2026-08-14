@@ -47,6 +47,34 @@ body {
   transition: background-color 450ms var(--ease-out-fluid), color 350ms ease;
 }
 
+/* ---------- Smooth Global Theme Surface Transitions ---------- */
+body,
+.header,
+.link-card,
+.search-input,
+.search-clear,
+.modal,
+.form-input,
+.btn,
+.btn-add,
+.btn-logout,
+.profile-chip,
+.profile-dropdown,
+.toast,
+.empty-state,
+.loading-card,
+.link-card-logo,
+.link-card-action-btn,
+.link-card-id-pill,
+.liquid-orb {
+  transition: 
+    background-color 450ms var(--ease-out-fluid),
+    background 450ms var(--ease-out-fluid),
+    color 350ms var(--ease-out-fluid),
+    border-color 350ms ease,
+    box-shadow 400ms var(--ease-out-fluid);
+}
+
 #root {
   position: relative;
   z-index: 1;
