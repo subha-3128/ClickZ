@@ -1,13 +1,14 @@
 <div align="center">
-  <img src="public/pwa-512.png" alt="ClickZ Logo" width="100" />
+  <img src="public/pwa-512.png" alt="ClickZ Logo" width="105" />
   <h1>ClickZ 🔗</h1>
-  <p><strong>A minimal, blazing fast, and secure 3D Claymorphic link management platform.</strong></p>
+  <p><strong>A minimal, blazing fast, and secure Liquid Glass link management platform.</strong></p>
 
   [![Deployment](https://img.shields.io/badge/Vercel-Deploys_Live-000000?style=for-the-badge&logo=vercel&logoColor=white)](https://click-z.vercel.app/)
   [![React](https://img.shields.io/badge/React_19-00D8FF?style=for-the-badge&logo=react&logoColor=black)](https://react.dev/)
   [![Vite](https://img.shields.io/badge/Vite_8-646CFF?style=for-the-badge&logo=vite&logoColor=white)](https://vitejs.dev/)
   [![Supabase](https://img.shields.io/badge/Supabase-3ECF8E?style=for-the-badge&logo=supabase&logoColor=white)](https://supabase.com/)
   [![PWA Ready](https://img.shields.io/badge/PWA-Offline_Ready-FF6F00?style=for-the-badge&logo=pwa&logoColor=white)](https://click-z.vercel.app/)
+  [![License](https://img.shields.io/badge/License-MIT-blue?style=for-the-badge)](LICENSE)
 
   <br />
 
@@ -19,14 +20,14 @@
 ## 📖 Table of Contents
 
 - [🌟 Key Features](#-key-features)
-- [🎨 3D Claymorphism Design System](#-3d-claymorphism-design-system)
+- [💎 Liquid Glass Design System](#-liquid-glass-design-system)
+- [🎨 Theme Palette Specs](#-theme-palette-specs)
+- [⚡ Motion & Physics Architecture](#-motion--physics-architecture)
 - [🔍 SEO & Social Sharing Engine](#-seo--social-sharing-engine)
 - [🛠️ Tech Stack](#️-tech-stack)
 - [📂 Project Structure](#-project-structure)
 - [🚀 Quick Start (Local Setup)](#-quick-start-local-setup)
-- [⚙️ Environment Configuration](#️-environment-configuration)
 - [👨‍💻 Author & Credits](#-author--credits)
-- [📄 License](#-license)
 
 ---
 
@@ -34,32 +35,63 @@
 
 - 🔐 **Secure Google OAuth**: Passwordless 1-click Google authentication powered by **Supabase Auth**.
 - ⚡ **Instant Real-Time Search**: Search through saved URLs, custom identifiers, and titles with zero latency.
-- 🎯 **Smart Auto-Logo Retrieval**: Automatically resolves domain logos using the **Iconify API** with initial fallback avatars.
+- 🎯 **Smart Auto-Logo Discovery**: Automatically resolves domain favicons and brand logos using the **Iconify API** with initial fallback avatars.
 - 📱 **Progressive Web App (PWA)**: Fully installable on iOS, Android, macOS, and Windows. Works offline via custom Service Worker caching.
-- 🌓 **Dual 3D Clay Themes**: Toggle seamlessly between **Dark Clay** (Deep Charcoal & Electric Cyan) and **Light Clay** (Pastel Slate & Deep Blue).
-- 📋 **One-Click Quick Copy**: Instant clipboard copy feedback for fast sharing.
-- 🔒 **Safe CRUD Operations**: Add, edit, copy, and safely confirm link deletions.
+- 💎 **Liquid Glass UI**: Ultra-premium frosted glass panels with specular glare sweep reflections and morphing ambient liquid background orbs.
+- 📱 **1-Row Responsive Header**: Strict single-line alignment of `ClickZ` title, light/dark mode shifting icon, and Google profile avatar across all viewports.
+- 📋 **One-Click Copy Feedback**: Instant clipboard copy with animated emerald glass checkmark indicators.
+- 🛡️ **Safe CRUD Operations**: Add, edit, open in new tab, and safely confirm link deletions.
 
 ---
 
-## 🎨 3D Claymorphism Design System
+## 💎 Liquid Glass Design System
 
-ClickZ implements a state-of-the-art **Claymorphism** visual language featuring:
+ClickZ implements a state-of-the-art **Liquid Glass** visual language featuring:
 
-- **Soft 3D Volumetric Panels**: Dual inner lighting reflections (`inset 3px 3px 6px rgba(255, 255, 255, 0.22)`) paired with deep bottom-right inset shadows and floating drop shadows.
-- **Spring Physics Micro-Interactions**: Interactive buttons feature tactile 3D hover lifting (`transform: translateY(-3px) scale(1.03)`) and satisfying press squishing (`transform: translateY(2px) scale(0.96)`).
-- **Sunken Carved Inputs**: Deep inset shadows (`--clay-input-shadow`) creating a 3D tactile groove for the real-time search bar and modal form fields.
+- **Frosted Glass Panels**: Backdropped blur panels (`backdrop-filter: blur(20px)`) with specular edge lighting highlights.
+- **Ambient Liquid Orbs**: Floating fluid background elements with continuous organic border-radius morphing (`@keyframes floatLiquid`).
+- **Compact Pro Link Cards**: Ergonomic 64px card containers with golden-ratio 44px favicon crystal badges and inline horizontal action toolbars.
+
+---
+
+## 🎨 Theme Palette Specs
+
+| UI Element | ☀️ Light Liquid Theme | 🌙 Dark Liquid Theme |
+| :--- | :--- | :--- |
+| **Background** | `#E8F1F8` | `#08121C` |
+| **Glass Surface** | `#F7FBFF` | `#142432` |
+| **Glass Highlight** | `#FFFFFF` | `#263A4A` |
+| **Primary / CTA** | `#1597E5` | `#20B8F2` |
+| **Primary Hover** | `#087FD0` | `#42C8F7` |
+| **Brand Purple** | `#7657F6` | `#8874FF` |
+| **Primary Text** | `#102331` | `#F4FAFF` |
+| **Secondary Text** | `#607789` | `#91A7B8` |
+| **Muted Text** | `#8DA1B0` | `#6F8799` |
+| **Glass Border** | `rgba(255, 255, 255, 0.75)` | `rgba(255, 255, 255, 0.12)` |
+| **Input Background** | `#EBF4FB` | `#0F202D` |
+| **Accent Glow** | `#63D5FF` | `#20B8F2` |
+| **Ambient Violet** | `#9B8CFF` | `#8874FF` |
+| **Favorite / Star** | `#F5B942` | `#FFC857` |
+| **Success** | `#26B99A` | `#35D0AC` |
+| **Danger** | `#EF6B73` | `#FF737B` |
+
+---
+
+## ⚡ Motion & Physics Architecture
+
+- **Custom Cubic-Bezier Easings**: Powered by custom physics curves (`var(--ease-spring)`: `cubic-bezier(0.34, 1.56, 0.64, 1)` and `var(--ease-out-fluid)`: `cubic-bezier(0.16, 1, 0.3, 1)`).
+- **Staggered Card Cascade**: Link card list items cascade into view with a 45ms staggered delay per card.
+- **Sun/Moon Spin Animation**: 360-degree rotation spin and scale bounce when toggling theme mode.
+- **450ms Global Theme Shift**: Smooth surface color interpolation across all UI components when shifting between Light and Dark mode.
 
 ---
 
 ## 🔍 SEO & Social Sharing Engine
 
-ClickZ is fully optimized for top search engine visibility and rich social media previews:
-
 - **Open Graph & Twitter Cards**: High-resolution custom social card previews (`og:image`, `twitter:card`).
 - **Structured Data (Schema.org)**: Embedded JSON-LD `WebApplication` & `Person` schemas for Google rich search results.
-- **Robots & Sitemap**: Production `robots.txt` and `sitemap.xml` for automated crawler discovery.
-- **Semantic HTML5**: Native landmarks (`<main>`, `<header>`, `<section>`, `<footer>`) ensuring high accessibility (a11y) and crawlability.
+- **Preconnected Fonts**: Preconnected Google Fonts (`Plus Jakarta Sans` & `Manrope`) for fast text rendering.
+- **PWA Manifest & Theme-Color**: Media-query responsive `theme-color` headers matching mobile status bars.
 
 ---
 
@@ -69,11 +101,12 @@ ClickZ is fully optimized for top search engine visibility and rich social media
 | :--- | :--- |
 | **Frontend Framework** | [React 19](https://react.dev/) |
 | **Build Tool & Server** | [Vite 8](https://vitejs.dev/) |
-| **Styling** | Vanilla CSS (Claymorphic Design Tokens & CSS Modules) |
+| **Styling** | Vanilla CSS (Liquid Glass Tokens & Keyframe Animations) |
 | **Backend & Database** | [Supabase](https://supabase.com/) (PostgreSQL) |
 | **Authentication** | Supabase Auth (Google OAuth 2.0) |
 | **PWA & Offline** | Web App Manifest & Service Workers |
 | **Icons & Logos** | [Iconify API](https://iconify.design/) & Custom SVGs |
+| **Analytics** | [Vercel Speed Insights](https://vercel.com/analytics) |
 | **Deployment** | [Vercel](https://vercel.com/) |
 
 ---
@@ -91,8 +124,8 @@ ClickZ/
 │   └── sw.js                # Service Worker for Offline PWA Support
 ├── src/
 │   ├── components/
-│   │   ├── auth/            # LoginScreen & Clay Auth Styling
-│   │   ├── layout/          # Sticky Header, Theme Toggle, Profile Chip
+│   │   ├── auth/            # LoginScreen & Liquid Auth Styling
+│   │   ├── layout/          # 1-Row Header, Theme Toggle, Profile Chip
 │   │   ├── links/           # LinkCard, LinkForm Modal, SkeletonList
 │   │   └── ui/              # EmptyState, Toast Notifications, SVG Icons
 │   ├── lib/
@@ -100,10 +133,9 @@ ClickZ/
 │   ├── utils/
 │   │   └── helpers.js       # Auto-Logo Candidate Generator & Helpers
 │   ├── App.jsx              # Main Application Orchestrator
-│   ├── App.css              # Global Claymorphic Tokens & Layout
-│   ├── index.css            # Base Resets & Keyframe Animations
+│   ├── App.css              # Global Liquid Glass Tokens & Color Palettes
+│   ├── index.css            # Base Resets, Motion Easings & Keyframes
 │   └── main.jsx             # React DOM Root Entry
-├── eslint.config.js         # ESLint Configuration
 ├── index.html               # Primary HTML5 Shell & Schema.org JSON-LD
 └── package.json             # Project Dependencies & Scripts
 ```
@@ -111,8 +143,6 @@ ClickZ/
 ---
 
 ## 🚀 Quick Start (Local Setup)
-
-Follow these steps to run ClickZ locally on your machine:
 
 ### Prerequisites
 - **Node.js** (v18 or higher)
@@ -161,5 +191,6 @@ Open [http://localhost:5173](http://localhost:5173) in your browser.
 ---
 
 <div align="center">
-  <sub>Built with ❤️ by Subhajit Bepari. Powered by React 19, Supabase & Claymorphism.</sub>
+  <sub>Built with ❤️ by Subhajit Bepari. Powered by React 19, Supabase & Liquid Glass.</sub>
 </div>
+
