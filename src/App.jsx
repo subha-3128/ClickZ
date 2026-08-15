@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import { SpeedInsights } from '@vercel/speed-insights/react';
+import { Analytics } from '@vercel/analytics/react';
 import { supabase } from './lib/supabase';
 import { delay } from './utils/helpers';
 import { Header } from './components/layout/Header';
@@ -247,6 +248,7 @@ export default function App() {
         <LoginScreen onLogin={handleLogin} isAuthenticating={authenticating} />
         {toast.msg && <Toast key={toast.id} message={toast.msg} onDone={() => setToast((prev) => ({ ...prev, msg: null }))} />}
         <SpeedInsights />
+        <Analytics />
       </>
     );
   }
@@ -313,6 +315,7 @@ export default function App() {
 
         {toast.msg && <Toast key={toast.id} message={toast.msg} onDone={() => setToast((prev) => ({ ...prev, msg: null }))} />}
         <SpeedInsights />
+        <Analytics />
       </div>
     </>
   );
