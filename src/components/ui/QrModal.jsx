@@ -13,7 +13,7 @@ export function QrModal({ item, onClose, onCopy }) {
   function handleCopy() {
     onCopy(item.link);
     setCopied(true);
-    setTimeout(() => setCopied(false), 1600);
+    setTimeout(() => setCopied(false), 1500);
   }
 
   async function handleDownloadQr() {
@@ -45,17 +45,18 @@ export function QrModal({ item, onClose, onCopy }) {
   return (
     <div className="qr-modal-overlay" onClick={handleOverlayClick} role="dialog" aria-modal="true">
       <div className="qr-modal-card">
-        <button className="qr-modal-close" onClick={onClose} aria-label="Close QR Code Modal">
-          <IconX />
-        </button>
-
-        <header className="qr-modal-header">
-          <h2>QR Code</h2>
-          <div className="qr-modal-subtitle">
-            <span className="qr-item-name">{item.name}</span>
-            <span className="qr-item-id">@{item.custom_id}</span>
+        <div className="qr-modal-header">
+          <div className="qr-modal-title-wrap">
+            <h2>QR Code</h2>
+            <div className="qr-modal-subtitle">
+              <span className="qr-item-name">{item.name}</span>
+              <span className="qr-item-id">@{item.custom_id}</span>
+            </div>
           </div>
-        </header>
+          <button className="qr-modal-close" onClick={onClose} aria-label="Close QR Code Modal">
+            <IconX />
+          </button>
+        </div>
 
         <div className="qr-image-wrapper">
           <img src={qrCodeUrl} alt={`QR code for ${item.name}`} className="qr-image" />
@@ -77,11 +78,11 @@ export function QrModal({ item, onClose, onCopy }) {
         <div className="qr-modal-actions">
           <button className={`qr-action-btn ${copied ? 'copied' : ''}`} onClick={handleCopy}>
             {copied ? <IconCheck /> : <IconCopy />}
-            <span>{copied ? 'Copied Link' : 'Copy Link'}</span>
+            <span>{copied ? 'Copied' : 'Copy URL'}</span>
           </button>
           <button className="qr-action-btn qr-action-btn--primary" onClick={handleDownloadQr} disabled={downloading}>
             <IconDownload />
-            <span>{downloading ? 'Downloading...' : 'Download QR'}</span>
+            <span>{downloading ? 'Downloading...' : 'Download Image'}</span>
           </button>
         </div>
       </div>

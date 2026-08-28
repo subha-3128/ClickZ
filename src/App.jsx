@@ -24,7 +24,6 @@ export default function App() {
   const [showModal, setShowModal] = useState(false);
   const [editingLink, setEditingLink] = useState(null);
   const [qrModalItem, setQrModalItem] = useState(null);
-  const [selectedCategory, setSelectedCategory] = useState(null);
   const [saving, setSaving] = useState(false);
   const [search, setSearch] = useState('');
   const [toast, setToast] = useState({ msg: null, id: 0 });
@@ -168,8 +167,8 @@ export default function App() {
       if (error) throw error;
 
       const elapsed = Date.now() - start;
-      if (elapsed < 500) {
-        await delay(500 - elapsed);
+      if (elapsed < 300) {
+        await delay(300 - elapsed);
       }
 
       setLinks(data ?? []);
@@ -191,31 +190,13 @@ export default function App() {
   }, [user, fetchLinks]);
 
   const filteredLinks = useMemo(() => {
-    let result = links;
-
-    // Filter by selected category chip if active
-    if (selectedCategory) {
-      result = result.filter((item) => {
-        if (item.category && item.category === selectedCategory) return true;
-        try {
-          const host = new URL(item.link).hostname.toLowerCase();
-          if (selectedCategory === 'Dev' && (host.includes('github') || host.includes('vercel') || host.includes('npm') || host.includes('gitlab'))) return true;
-          if (selectedCategory === 'Social' && (host.includes('twitter') || host.includes('x.com') || host.includes('linkedin') || host.includes('instagram'))) return true;
-          if (selectedCategory === 'Design' && (host.includes('figma') || host.includes('dribbble') || host.includes('behance'))) return true;
-          return false;
-        } catch {
-          return false;
-        }
-      });
-    }
-
     const query = search.trim().toLowerCase();
-    if (!query) return result;
+    if (!query) return links;
 
-    return result.filter((item) => {
+    return links.filter((item) => {
       return item.name.toLowerCase().includes(query) || item.custom_id.toLowerCase().includes(query) || item.link.toLowerCase().includes(query);
     });
-  }, [links, search, selectedCategory]);
+  }, [links, search]);
 
   async function handleLogin() {
     setAuthenticating(true);
@@ -267,7 +248,6 @@ export default function App() {
 
       if (error) throw error;
 
-      // Attach client-side category for dynamic UI tag
       const inserted = { ...data, category: formData.category };
       setLinks((prev) => [inserted, ...prev]);
       setShowModal(false);
@@ -338,11 +318,6 @@ export default function App() {
   if (authLoading) {
     return (
       <div className="loading-screen">
-        <div className="liquid-bg-container">
-          <div className="liquid-orb liquid-orb-1" />
-          <div className="liquid-orb liquid-orb-2" />
-          <div className="liquid-orb liquid-orb-3" />
-        </div>
         <div className="loading-card">
           <div className="spinner-ring" />
           <span>Checking session...</span>
@@ -363,12 +338,6 @@ export default function App() {
   if (!user) {
     return (
       <>
-        <div className="liquid-bg-container">
-          <div className="liquid-orb liquid-orb-1" />
-          <div className="liquid-orb liquid-orb-2" />
-          <div className="liquid-orb liquid-orb-3" />
-          <div className="liquid-orb liquid-orb-4" />
-        </div>
         <LoginScreen onLogin={handleLogin} isAuthenticating={authenticating} />
         {toast.msg && <Toast key={toast.id} message={toast.msg} onDone={() => setToast((prev) => ({ ...prev, msg: null }))} />}
         <SpeedInsights />
@@ -378,79 +347,76 @@ export default function App() {
   }
 
   return (
-    <>
-      <div className="liquid-bg-container">
-        <div className="liquid-orb liquid-orb-1" />
-        <div className="liquid-orb liquid-orb-2" />
-        <div className="liquid-orb liquid-orb-3" />
-        <div className="liquid-orb liquid-orb-4" />
-      </div>
+    <div className="app">
+      <Header
+        user={user}
+        onLogout={handleLogout}
+        onAddLink={() => setShowModal(true)}
+        theme={theme}
+        toggleTheme={toggleTheme}
+      />
 
-      <div className="app">
-        <Header user={user} onLogout={handleLogout} onAddLink={() => setShowModal(true)} theme={theme} toggleTheme={toggleTheme} />
-
-        {links.length > 0 && !linksLoading && (
-          <div className="search-container">
-            <span className="search-icon"><IconSearch /></span>
-            <input
-              ref={searchInputRef}
-              className="search-input"
-              type="text"
-              placeholder="Search links by name, handle or URL (press / or ⌘K)..."
-              value={search}
-              onChange={(event) => setSearch(event.target.value)}
-            />
-            {search && (
-              <button className="search-clear" onClick={() => setSearch('')} aria-label="Clear search">
-                <IconX />
-              </button>
-            )}
-          </div>
-        )}
-
-        <main className="content-area">
-          {linksLoading ? (
-            <SkeletonList count={6} />
-          ) : filteredLinks.length > 0 ? (
-            <div className="link-list">
-              {filteredLinks.map((item, index) => (
-                <LinkCard
-                  key={item.id}
-                  index={index}
-                  item={item}
-                  onCopy={handleCopy}
-                  onEdit={(link) => setEditingLink(link)}
-                  onDelete={handleDeleteLink}
-                  onShowQr={(link) => setQrModalItem(link)}
-                />
-              ))}
-            </div>
-          ) : (
-            <EmptyState />
+      {links.length > 0 && !linksLoading && (
+        <div className="search-container">
+          <span className="search-icon"><IconSearch /></span>
+          <input
+            ref={searchInputRef}
+            className="search-input"
+            type="text"
+            placeholder="Search links (press / or ⌘K)..."
+            value={search}
+            onChange={(event) => setSearch(event.target.value)}
+          />
+          {search && (
+            <button className="search-clear" onClick={() => setSearch('')} aria-label="Clear search">
+              <IconX />
+            </button>
           )}
-        </main>
+        </div>
+      )}
 
-        {(showModal || editingLink) && (
-          <LinkForm
-            onSave={showModal ? handleAddLink : handleUpdateLink}
-            onCancel={() => { setShowModal(false); setEditingLink(null); }}
-            saving={saving}
-            initialData={editingLink}
-          />
+      <main className="content-area">
+        {linksLoading ? (
+          <SkeletonList count={6} />
+        ) : filteredLinks.length > 0 ? (
+          <div className="link-list">
+            {filteredLinks.map((item, index) => (
+              <LinkCard
+                key={item.id}
+                index={index}
+                item={item}
+                onCopy={handleCopy}
+                onEdit={(link) => setEditingLink(link)}
+                onDelete={handleDeleteLink}
+                onShowQr={(link) => setQrModalItem(link)}
+              />
+            ))}
+          </div>
+        ) : (
+          <EmptyState />
         )}
+      </main>
 
-        {qrModalItem && (
-          <QrModal
-            item={qrModalItem}
-            onClose={() => setQrModalItem(null)}
-            onCopy={handleCopy}
-          />
-        )}
+      {(showModal || editingLink) && (
+        <LinkForm
+          onSave={showModal ? handleAddLink : handleUpdateLink}
+          onCancel={() => { setShowModal(false); setEditingLink(null); }}
+          saving={saving}
+          initialData={editingLink}
+        />
+      )}
 
-        {toast.msg && <Toast key={toast.id} message={toast.msg} onDone={() => setToast((prev) => ({ ...prev, msg: null }))} />}
-        <SpeedInsights />
-        <Analytics />
-      </div>
-    </>
+      {qrModalItem && (
+        <QrModal
+          item={qrModalItem}
+          onClose={() => setQrModalItem(null)}
+          onCopy={handleCopy}
+        />
+      )}
+
+      {toast.msg && <Toast key={toast.id} message={toast.msg} onDone={() => setToast((prev) => ({ ...prev, msg: null }))} />}
+      <SpeedInsights />
+      <Analytics />
+    </div>
   );
 }

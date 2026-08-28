@@ -44,38 +44,7 @@
 
 ---
 
-## 💎 Liquid Glass Design System
 
-ClickZ implements a state-of-the-art **Liquid Glass** visual language featuring:
-
-- **Frosted Glass Panels**: Backdropped blur panels (`backdrop-filter: blur(20px)`) with specular edge lighting highlights.
-- **Ambient Liquid Orbs**: Floating fluid background elements with continuous organic border-radius morphing (`@keyframes floatLiquid`).
-- **Compact Pro Link Cards**: Ergonomic 64px card containers with golden-ratio 44px favicon crystal badges and inline horizontal action toolbars.
-
----
-
-## 🎨 Theme Palette Specs
-
-| UI Element | ☀️ Light Liquid Theme | 🌙 Dark Liquid Theme |
-| :--- | :--- | :--- |
-| **Background** | `#E8F1F8` | `#08121C` |
-| **Glass Surface** | `#F7FBFF` | `#142432` |
-| **Glass Highlight** | `#FFFFFF` | `#263A4A` |
-| **Primary / CTA** | `#1597E5` | `#20B8F2` |
-| **Primary Hover** | `#087FD0` | `#42C8F7` |
-| **Brand Purple** | `#7657F6` | `#8874FF` |
-| **Primary Text** | `#102331` | `#F4FAFF` |
-| **Secondary Text** | `#607789` | `#91A7B8` |
-| **Muted Text** | `#8DA1B0` | `#6F8799` |
-| **Glass Border** | `rgba(255, 255, 255, 0.75)` | `rgba(255, 255, 255, 0.12)` |
-| **Input Background** | `#EBF4FB` | `#0F202D` |
-| **Accent Glow** | `#63D5FF` | `#20B8F2` |
-| **Ambient Violet** | `#9B8CFF` | `#8874FF` |
-| **Favorite / Star** | `#F5B942` | `#FFC857` |
-| **Success** | `#26B99A` | `#35D0AC` |
-| **Danger** | `#EF6B73` | `#FF737B` |
-
----
 
 ## ⚡ Motion & Physics Architecture
 

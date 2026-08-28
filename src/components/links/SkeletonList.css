@@ -1,33 +1,28 @@
-/* ---------- Liquid Glass Skeleton Loaders ---------- */
+/* ---------- Minimalist Skeleton Loaders ---------- */
 .skeleton-list {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
 }
 
 .skeleton-card {
   display: flex;
   align-items: center;
-  gap: 14px;
-  min-height: 76px;
-  border-radius: var(--radius-card);
-  border: 1px solid var(--glass-border);
-  padding: 14px 18px;
-  background: var(--glass-bg);
-  -webkit-backdrop-filter: var(--glass-blur);
-  backdrop-filter: var(--glass-blur);
-  box-shadow: var(--glass-shadow);
+  gap: 12px;
+  height: 52px;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border);
+  padding: 6px 12px;
+  background: var(--surface);
   position: relative;
   overflow: hidden;
 }
 
 .skeleton-logo {
-  width: 50px;
-  height: 50px;
-  border-radius: 16px;
-  background: var(--glass-bg-solid);
-  border: 1px solid var(--glass-border-strong);
-  opacity: 0.8;
+  width: 36px;
+  height: 36px;
+  border-radius: var(--radius-sm);
+  background: var(--surface-raised);
   flex-shrink: 0;
 }
 
@@ -35,22 +30,21 @@
   flex: 1;
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 6px;
 }
 
 .skeleton-line {
-  height: 12px;
+  height: 10px;
   border-radius: var(--radius-pill);
-  background: var(--text-dim);
-  opacity: 0.35;
+  background: var(--surface-raised);
 }
 
 .skeleton-line-name {
-  width: min(62%, 240px);
+  width: min(40%, 160px);
 }
 
 .skeleton-line-id {
-  width: min(38%, 140px);
+  width: min(25%, 100px);
 }
 
 .shimmer {
@@ -66,10 +60,19 @@
   background: linear-gradient(
     90deg,
     transparent 0%,
-    rgba(255, 255, 255, 0.25) 50%,
+    rgba(255, 255, 255, 0.04) 50%,
     transparent 100%
   );
-  animation: shimmerMove 1.6s ease infinite;
+  animation: shimmerMove 1.5s infinite;
+}
+
+[data-theme="light"] .shimmer::after {
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(0, 0, 0, 0.04) 50%,
+    transparent 100%
+  );
 }
 
 @keyframes shimmerMove {
@@ -77,4 +80,3 @@
     transform: translateX(100%);
   }
 }
-

@@ -1,6 +1,6 @@
 import { useState, useRef, useEffect } from 'react';
 import { isValidUrl, getInitials } from '../../utils/helpers';
-import { IconX, IconSparkles } from '../ui/Icons';
+import { IconX } from '../ui/Icons';
 import './LinkForm.css';
 
 const CATEGORY_OPTIONS = ['Dev', 'Social', 'Design', 'Work', 'Personal'];
@@ -80,8 +80,8 @@ export function LinkForm({ onSave, onCancel, saving, initialData }) {
       <div className="modal" role="dialog" aria-modal="true" aria-labelledby="add-link-title">
         <div className="modal-header">
           <div className="modal-title-wrap">
-            <h2 id="add-link-title">{isEditing ? 'Edit Link' : 'Add Link'}</h2>
-            <span className="modal-subtitle">Organize and save your bookmark</span>
+            <h2 id="add-link-title">{isEditing ? 'Edit Link' : 'New Link'}</h2>
+            <span className="modal-subtitle">Save and organize a destination</span>
           </div>
           <button className="modal-close" onClick={onCancel} disabled={saving} aria-label="Close">
             <IconX />
@@ -90,12 +90,12 @@ export function LinkForm({ onSave, onCancel, saving, initialData }) {
 
         <form onSubmit={handleSubmit} noValidate>
           <div className="form-group">
-            <label className="form-label" htmlFor="link">URL *</label>
+            <label className="form-label" htmlFor="link">URL</label>
             <input
               id="link"
               className={`form-input ${errors.link ? 'error' : ''}`}
               type="url"
-              placeholder="https://example.com/project"
+              placeholder="https://github.com/subha-3128"
               value={link}
               onChange={(e) => handleLinkChange(e.target.value)}
             />
@@ -104,13 +104,13 @@ export function LinkForm({ onSave, onCancel, saving, initialData }) {
 
           <div className="form-row-2col">
             <div className="form-group">
-              <label className="form-label" htmlFor="name">Display Name *</label>
+              <label className="form-label" htmlFor="name">Title</label>
               <input
                 ref={nameRef}
                 id="name"
                 className={`form-input ${errors.name ? 'error' : ''}`}
                 type="text"
-                placeholder="e.g. GitHub Repository"
+                placeholder="e.g. GitHub"
                 value={name}
                 onChange={(event) => {
                   setName(event.target.value);
@@ -121,12 +121,12 @@ export function LinkForm({ onSave, onCancel, saving, initialData }) {
             </div>
 
             <div className="form-group">
-              <label className="form-label" htmlFor="custom-id">Custom Handle / ID *</label>
+              <label className="form-label" htmlFor="custom-id">Handle</label>
               <input
                 id="custom-id"
                 className={`form-input ${errors.customId ? 'error' : ''}`}
                 type="text"
-                placeholder="e.g. github-main"
+                placeholder="e.g. github"
                 value={customId}
                 onChange={(event) => {
                   setCustomId(event.target.value);
@@ -138,7 +138,7 @@ export function LinkForm({ onSave, onCancel, saving, initialData }) {
           </div>
 
           <div className="form-group">
-            <label className="form-label">Category Tag</label>
+            <label className="form-label">Category</label>
             <div className="form-category-chips">
               {CATEGORY_OPTIONS.map((cat) => (
                 <button
@@ -153,21 +153,19 @@ export function LinkForm({ onSave, onCancel, saving, initialData }) {
             </div>
           </div>
 
-          {/* Live Card Preview */}
+          {/* Live Preview */}
           <div className="form-preview-box">
-            <div className="form-preview-header">
-              <IconSparkles />
-              <span>Live Card Preview</span>
-            </div>
+            <div className="form-preview-label">Preview</div>
             <div className="form-preview-card">
               <div className="form-preview-logo">
-                {getInitials(name || 'Link')}
+                {getInitials(name || 'L')}
               </div>
               <div className="form-preview-info">
-                <div className="form-preview-name">{name || 'Link Name Preview'}</div>
-                <div className="form-preview-sub">
-                  <span className="form-preview-pill">@{customId || 'handle'}</span>
-                  <span className="form-preview-tag">{category}</span>
+                <div className="form-preview-name">{name || 'Link Title'}</div>
+                <div className="form-preview-meta">
+                  <span>@{customId || 'handle'}</span>
+                  <span>•</span>
+                  <span>{category}</span>
                 </div>
               </div>
             </div>
@@ -178,7 +176,7 @@ export function LinkForm({ onSave, onCancel, saving, initialData }) {
               Cancel
             </button>
             <button type="submit" className="btn btn-primary" disabled={saving}>
-              {saving ? (isEditing ? 'Saving...' : 'Saving...') : (isEditing ? 'Save Changes' : 'Save Link')}
+              {saving ? 'Saving...' : (isEditing ? 'Save Changes' : 'Create Link')}
             </button>
           </div>
         </form>

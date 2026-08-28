@@ -7,8 +7,8 @@ export function EmptyState() {
       <div className="empty-state-icon">
         <IconLink />
       </div>
-      <h2>No links added yet</h2>
-      <p>Use the Add button to save your first link.</p>
+      <h2>No links saved yet</h2>
+      <p>Click "New Link" or press <kbd>N</kbd> to add your first bookmark.</p>
     </div>
   );
 }

@@ -16,9 +16,9 @@ export function LinkCard({ item, index = 0, onCopy, onEdit, onDelete, onShowQr }
         setIsMenuOpen(false);
       }
     }
-    document.addEventListener("mousedown", handleClickOutside);
+    document.addEventListener('mousedown', handleClickOutside);
     return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
+      document.removeEventListener('mousedown', handleClickOutside);
     };
   }, []);
 
@@ -49,7 +49,7 @@ export function LinkCard({ item, index = 0, onCopy, onEdit, onDelete, onShowQr }
   function handleCardClick() {
     onCopy(item.link);
     setCopied(true);
-    setTimeout(() => setCopied(false), 1600);
+    setTimeout(() => setCopied(false), 1500);
   }
 
   if (confirmDelete) {
@@ -61,13 +61,13 @@ export function LinkCard({ item, index = 0, onCopy, onEdit, onDelete, onShowQr }
         </div>
         <div className="link-card-confirm-actions">
           <button
-            className="link-card-action-btn link-card-action-btn--cancel"
+            className="link-card-confirm-btn link-card-confirm-btn--cancel"
             onClick={() => setConfirmDelete(false)}
           >
             Cancel
           </button>
           <button
-            className="link-card-action-btn link-card-action-btn--danger"
+            className="link-card-confirm-btn link-card-confirm-btn--danger"
             onClick={() => onDelete(item.id)}
           >
             Delete
@@ -80,7 +80,7 @@ export function LinkCard({ item, index = 0, onCopy, onEdit, onDelete, onShowQr }
   return (
     <div
       className={`link-card ${copied ? 'copied' : ''}`}
-      style={{ animationDelay: `${Math.min(index, 12) * 45}ms` }}
+      style={{ animationDelay: `${Math.min(index, 10) * 30}ms` }}
     >
       <button
         className="link-card-main"
@@ -92,18 +92,22 @@ export function LinkCard({ item, index = 0, onCopy, onEdit, onDelete, onShowQr }
           {logoUrl ? (
             <img src={logoUrl} alt={`${item.name} logo`} onError={handleLogoError} />
           ) : (
-            getInitials(item.name)
+            <span>{getInitials(item.name)}</span>
           )}
         </div>
+
         <div className="link-card-info">
           <div className="link-card-header-row">
             <span className="link-card-name">{item.name}</span>
             {categoryTag && <span className="link-card-tag">{categoryTag}</span>}
           </div>
-          <div className="link-card-id">
-            <span className="link-card-id-pill">@{item.custom_id}</span>
+          <div className="link-card-meta">
+            <span className="link-card-id">@{item.custom_id}</span>
+            <span className="link-card-dot">•</span>
+            <span className="link-card-url">{item.link.replace(/^https?:\/\//, '')}</span>
           </div>
         </div>
+
         <div className={`link-card-copy-hint ${copied ? 'copied' : ''}`} aria-hidden="true">
           {copied ? <IconCheck /> : <IconCopy />}
         </div>
@@ -112,50 +116,67 @@ export function LinkCard({ item, index = 0, onCopy, onEdit, onDelete, onShowQr }
       <div className="link-card-actions-wrapper" ref={menuRef}>
         <button
           className={`link-card-menu-toggle ${isMenuOpen ? 'active' : ''}`}
-          onClick={(e) => { e.preventDefault(); e.stopPropagation(); setIsMenuOpen(!isMenuOpen); }}
-          aria-label="Toggle menu"
+          onClick={(e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            setIsMenuOpen(!isMenuOpen);
+          }}
+          aria-label="More options"
         >
           <IconMoreVertical />
         </button>
+
         <div className={`link-card-actions ${isMenuOpen ? 'open' : ''}`}>
           <button
-          className="link-card-action-btn link-card-action-btn--qr"
-          onClick={() => onShowQr && onShowQr(item)}
-          title="Show QR Code"
-          aria-label={`Show QR Code for ${item.name}`}
-        >
-          <IconQrCode />
-        </button>
-        <a
-          href={item.link}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="link-card-action-btn link-card-action-btn--open"
-          title="Open link in new tab"
-          aria-label={`Open ${item.name} in new tab`}
-        >
-          <IconExternalLink />
-        </a>
-        <button
-          className="link-card-action-btn link-card-action-btn--edit"
-          onClick={() => onEdit(item)}
-          title="Edit link"
-          aria-label={`Edit ${item.name}`}
-        >
-          <IconPencil />
-        </button>
-        <button
-          className="link-card-action-btn link-card-action-btn--delete"
-          onClick={() => setConfirmDelete(true)}
-          title="Delete link"
-          aria-label={`Delete ${item.name}`}
-        >
-          <IconTrash />
-        </button>
+            className="link-card-action-btn"
+            onClick={() => {
+              setIsMenuOpen(false);
+              onShowQr && onShowQr(item);
+            }}
+            title="QR Code"
+            aria-label={`Show QR Code for ${item.name}`}
+          >
+            <IconQrCode />
+            <span className="mobile-action-label">QR Code</span>
+          </button>
+          <a
+            href={item.link}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="link-card-action-btn"
+            title="Open in new tab"
+            aria-label={`Open ${item.name} in new tab`}
+            onClick={() => setIsMenuOpen(false)}
+          >
+            <IconExternalLink />
+            <span className="mobile-action-label">Open link</span>
+          </a>
+          <button
+            className="link-card-action-btn"
+            onClick={() => {
+              setIsMenuOpen(false);
+              onEdit(item);
+            }}
+            title="Edit"
+            aria-label={`Edit ${item.name}`}
+          >
+            <IconPencil />
+            <span className="mobile-action-label">Edit</span>
+          </button>
+          <button
+            className="link-card-action-btn link-card-action-btn--delete"
+            onClick={() => {
+              setIsMenuOpen(false);
+              setConfirmDelete(true);
+            }}
+            title="Delete"
+            aria-label={`Delete ${item.name}`}
+          >
+            <IconTrash />
+            <span className="mobile-action-label">Delete</span>
+          </button>
         </div>
       </div>
     </div>
   );
 }
-
-

@@ -19,62 +19,61 @@ export function Header({ user, onLogout, onAddLink, theme, toggleTheme }) {
 
   return (
     <header className="header">
-      <div className="header-nav">
-        {/* Brand Logo & Title */}
-        <div className="header-brand">
-          <img src="/pwa-512.png" alt="ClickZ" className="header-logo" />
-          <h1>ClickZ</h1>
-        </div>
-
-        {/* User Controls: Theme Toggle & Avatar */}
-        <div className="header-controls">
-          <button className="btn-theme-toggle" onClick={toggleTheme} aria-label="Toggle theme">
-            <span className={`theme-toggle-icon ${theme}`}>
-              {theme === 'dark' ? <IconSun /> : <IconMoon />}
-            </span>
-          </button>
-
-          <div className="profile-container" ref={containerRef}>
-            <button
-              className="profile-chip"
-              title={user.email || 'User'}
-              aria-expanded={showDropdown}
-              aria-haspopup="true"
-              onClick={() => setShowDropdown((prev) => !prev)}
-            >
-              {user.user_metadata?.avatar_url ? (
-                <img src={user.user_metadata.avatar_url} alt="Profile avatar" />
-              ) : (
-                <span>{getInitials(user.user_metadata?.full_name || user.email || 'U')}</span>
-              )}
-            </button>
-
-            {showDropdown && (
-              <div className="profile-dropdown">
-                <button className="btn-logout" onClick={() => {
-                  setShowDropdown(false);
-                  onLogout();
-                }}>
-                  Logout
-                </button>
-              </div>
-            )}
-          </div>
-
-          <button className="btn-add btn-add-desktop" onClick={onAddLink}>
-            <IconPlus />
-            <span>Add</span>
-          </button>
-        </div>
+      <div className="header-brand">
+        <img src="/pwa-512.png" alt="ClickZ" className="header-logo" />
+        <span className="header-title">ClickZ</span>
       </div>
 
-      {/* Mobile Add Button Bar */}
-      <button className="btn-add btn-add-mobile" onClick={onAddLink}>
-        <IconPlus />
-        <span>Add Link</span>
-      </button>
+      <div className="header-controls">
+        <button
+          className="btn-theme-toggle"
+          onClick={toggleTheme}
+          aria-label="Toggle theme"
+          title={`Switch to ${theme === 'dark' ? 'light' : 'dark'} mode`}
+        >
+          {theme === 'dark' ? <IconSun /> : <IconMoon />}
+        </button>
+
+        <div className="profile-container" ref={containerRef}>
+          <button
+            className="profile-chip"
+            title={user.email || 'User'}
+            aria-expanded={showDropdown}
+            aria-haspopup="true"
+            onClick={() => setShowDropdown((prev) => !prev)}
+          >
+            {user.user_metadata?.avatar_url ? (
+              <img src={user.user_metadata.avatar_url} alt="Profile avatar" />
+            ) : (
+              <span>{getInitials(user.user_metadata?.full_name || user.email || 'U')}</span>
+            )}
+          </button>
+
+          {showDropdown && (
+            <div className="profile-dropdown">
+              <div className="profile-dropdown-user">
+                <span className="profile-dropdown-name">{user.user_metadata?.full_name || 'User'}</span>
+                <span className="profile-dropdown-email">{user.email}</span>
+              </div>
+              <div className="profile-dropdown-divider" />
+              <button
+                className="btn-logout"
+                onClick={() => {
+                  setShowDropdown(false);
+                  onLogout();
+                }}
+              >
+                Sign out
+              </button>
+            </div>
+          )}
+        </div>
+
+        <button className="btn-add" onClick={onAddLink}>
+          <IconPlus />
+          <span>New Link</span>
+        </button>
+      </div>
     </header>
   );
 }
-
-
