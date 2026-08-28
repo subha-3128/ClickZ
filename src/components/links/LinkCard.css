@@ -258,6 +258,14 @@
   height: 15px;
 }
 
+.link-card-action-btn--qr:hover {
+  background: rgba(136, 116, 255, 0.2);
+  border-color: var(--brand-purple);
+  color: var(--brand-purple);
+  box-shadow: 0 4px 14px rgba(136, 116, 255, 0.35);
+  transform: translateY(-2px) scale(1.06);
+}
+
 .link-card-action-btn--open:hover {
   background: rgba(32, 184, 242, 0.2);
   border-color: var(--brand);

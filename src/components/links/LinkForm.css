@@ -204,18 +204,152 @@
   box-shadow: var(--glass-shadow-hover);
 }
 
-@media (max-width: 760px) {
-  .modal-overlay {
-    padding: 0;
-  }
+.modal-title-wrap {
+  display: flex;
+  flex-direction: column;
+}
 
-  .modal {
-    max-width: 100%;
-    border-radius: 32px 32px 0 0;
-    padding: 26px;
-    padding-bottom: calc(26px + env(safe-area-inset-bottom, 0px));
+.modal-subtitle {
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--text-soft);
+  margin-top: 2px;
+}
+
+.form-row-2col {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+}
+
+@media (max-width: 520px) {
+  .form-row-2col {
+    grid-template-columns: 1fr;
+    gap: 0;
   }
 }
+
+.form-category-chips {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.form-category-chip {
+  padding: 6px 14px;
+  border-radius: 999px;
+  border: 1px solid var(--glass-border);
+  background: var(--glass-bg);
+  color: var(--text-soft);
+  font-size: 0.82rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 180ms ease;
+}
+
+.form-category-chip:hover {
+  border-color: var(--glass-border-strong);
+  color: var(--text-main);
+  background: var(--glass-bg-hover);
+}
+
+.form-category-chip.selected {
+  background: var(--brand-gradient);
+  color: #ffffff;
+  border-color: transparent;
+  box-shadow: 0 4px 12px var(--brand-glow);
+}
+
+/* Live Card Preview Box */
+.form-preview-box {
+  margin-top: 18px;
+  background: rgba(0, 0, 0, 0.2);
+  border: 1px dashed var(--glass-border-strong);
+  border-radius: 20px;
+  padding: 14px;
+}
+
+.form-preview-header {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: var(--primary);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: 10px;
+}
+
+.form-preview-header svg {
+  width: 14px;
+  height: 14px;
+}
+
+.form-preview-card {
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  border-radius: 16px;
+  padding: 10px 14px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.form-preview-logo {
+  width: 38px;
+  height: 38px;
+  border-radius: 12px;
+  background: var(--brand-gradient);
+  color: #ffffff;
+  display: grid;
+  place-items: center;
+  font-weight: 800;
+  font-size: 14px;
+  flex-shrink: 0;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+}
+
+.form-preview-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.form-preview-name {
+  font-weight: 700;
+  font-size: 0.92rem;
+  color: var(--text-main);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.form-preview-sub {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 3px;
+}
+
+.form-preview-pill {
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: var(--text-soft);
+  background: var(--input-bg);
+  padding: 1px 6px;
+  border-radius: 4px;
+}
+
+.form-preview-tag {
+  font-size: 0.68rem;
+  font-weight: 700;
+  color: var(--brand-purple);
+  background: rgba(136, 116, 255, 0.15);
+  padding: 1px 6px;
+  border-radius: 999px;
+  text-transform: uppercase;
+}
+
 
 
 

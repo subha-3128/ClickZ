@@ -1,28 +1,36 @@
-import { useCallback, useEffect, useMemo, useState } from 'react';
+import { useCallback, useEffect, useMemo, useState, useRef } from 'react';
 import { SpeedInsights } from '@vercel/speed-insights/react';
+import { Analytics } from "@vercel/analytics/react";
 import { supabase } from './lib/supabase';
 import { delay } from './utils/helpers';
 import { Header } from './components/layout/Header';
+import { StatsBar } from './components/layout/StatsBar';
 import { LoginScreen } from './components/auth/LoginScreen';
 import { LinkCard } from './components/links/LinkCard';
 import { LinkForm } from './components/links/LinkForm';
 import { SkeletonList } from './components/links/SkeletonList';
 import { Toast } from './components/ui/Toast';
 import { EmptyState } from './components/ui/EmptyState';
+import { QrModal } from './components/ui/QrModal';
 import { IconSearch, IconX } from './components/ui/Icons';
 import './App.css';
 
 export default function App() {
   const [session, setSession] = useState(null);
   const [authLoading, setAuthLoading] = useState(true);
+  const [sessionTimeout, setSessionTimeout] = useState(false);
   const [authenticating, setAuthenticating] = useState(false);
   const [links, setLinks] = useState([]);
   const [linksLoading, setLinksLoading] = useState(false);
   const [showModal, setShowModal] = useState(false);
   const [editingLink, setEditingLink] = useState(null);
+  const [qrModalItem, setQrModalItem] = useState(null);
+  const [selectedCategory, setSelectedCategory] = useState(null);
   const [saving, setSaving] = useState(false);
   const [search, setSearch] = useState('');
   const [toast, setToast] = useState({ msg: null, id: 0 });
+
+  const searchInputRef = useRef(null);
 
   const [theme, setTheme] = useState(() => {
     return localStorage.getItem('theme') || (window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark');
@@ -37,22 +45,103 @@ export default function App() {
 
   const user = session?.user ?? null;
 
+  // Global Keyboard Shortcuts
+  useEffect(() => {
+    function handleKeyDown(e) {
+      if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') {
+        if (e.key === 'Escape') {
+          e.target.blur();
+          if (search) setSearch('');
+        }
+        return;
+      }
+
+      if (e.key === '/' || ((e.metaKey || e.ctrlKey) && e.key === 'k')) {
+        e.preventDefault();
+        searchInputRef.current?.focus();
+      } else if (e.key === 'Escape') {
+        setShowModal(false);
+        setEditingLink(null);
+        setQrModalItem(null);
+        setSearch('');
+      } else if (e.key.toLowerCase() === 'n' && !e.metaKey && !e.ctrlKey) {
+        e.preventDefault();
+        setShowModal(true);
+      }
+    }
+
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [search]);
+
+  // Detect OAuth errors or tokens in URL on initial mount
+  useEffect(() => {
+    const searchParams = new URLSearchParams(window.location.search);
+    const hashString = window.location.hash.startsWith('#') ? window.location.hash.substring(1) : window.location.hash;
+    const hashParams = new URLSearchParams(hashString);
+
+    const errorDesc = searchParams.get('error_description') || hashParams.get('error_description');
+    const errorMsg = searchParams.get('error') || hashParams.get('error');
+
+    if (errorDesc || errorMsg) {
+      const cleanError = decodeURIComponent((errorDesc || errorMsg).replace(/\+/g, ' '));
+      setToast((prev) => ({ msg: `Authentication failed: ${cleanError}`, id: prev.id + 1 }));
+      window.history.replaceState({}, document.title, window.location.pathname);
+    }
+  }, []);
+
+  // Safety timeout if session checking takes too long
+  useEffect(() => {
+    if (!authLoading) return;
+    const timer = setTimeout(() => {
+      setSessionTimeout(true);
+    }, 4500);
+    return () => clearTimeout(timer);
+  }, [authLoading]);
+
   useEffect(() => {
     let mounted = true;
 
     async function bootstrapSession() {
-      const { data } = await supabase.auth.getSession();
-      if (!mounted) return;
-      setSession(data.session ?? null);
-      setAuthLoading(false);
+      try {
+        const { data, error } = await supabase.auth.getSession();
+        if (error) {
+          console.error('Session retrieval error:', error);
+          if (mounted) {
+            setToast((prev) => ({ msg: `Session check error: ${error.message}`, id: prev.id + 1 }));
+          }
+        }
+        if (mounted) {
+          setSession(data?.session ?? null);
+        }
+      } catch (err) {
+        console.error('Unexpected error checking session:', err);
+        if (mounted) {
+          setToast((prev) => ({ msg: 'Could not restore session', id: prev.id + 1 }));
+        }
+      } finally {
+        if (mounted) {
+          setAuthLoading(false);
+        }
+      }
     }
 
     bootstrapSession();
 
     const {
       data: { subscription },
-    } = supabase.auth.onAuthStateChange((_event, nextSession) => {
+    } = supabase.auth.onAuthStateChange((event, nextSession) => {
+      if (!mounted) return;
       setSession(nextSession ?? null);
+      setAuthLoading(false);
+      setAuthenticating(false);
+
+      if (event === 'SIGNED_IN' || event === 'TOKEN_REFRESHED') {
+        if (window.location.search.includes('code=') || window.location.hash.includes('access_token=')) {
+          window.history.replaceState({}, document.title, window.location.pathname);
+        }
+      }
+
       if (!nextSession) {
         setLinks([]);
       }
@@ -103,29 +192,51 @@ export default function App() {
   }, [user, fetchLinks]);
 
   const filteredLinks = useMemo(() => {
-    const query = search.trim().toLowerCase();
-    if (!query) return links;
+    let result = links;
 
-    return links.filter((item) => {
-      return item.name.toLowerCase().includes(query) || item.custom_id.toLowerCase().includes(query);
+    // Filter by selected category chip if active
+    if (selectedCategory) {
+      result = result.filter((item) => {
+        if (item.category && item.category === selectedCategory) return true;
+        try {
+          const host = new URL(item.link).hostname.toLowerCase();
+          if (selectedCategory === 'Dev' && (host.includes('github') || host.includes('vercel') || host.includes('npm') || host.includes('gitlab'))) return true;
+          if (selectedCategory === 'Social' && (host.includes('twitter') || host.includes('x.com') || host.includes('linkedin') || host.includes('instagram'))) return true;
+          if (selectedCategory === 'Design' && (host.includes('figma') || host.includes('dribbble') || host.includes('behance'))) return true;
+          return false;
+        } catch {
+          return false;
+        }
+      });
+    }
+
+    const query = search.trim().toLowerCase();
+    if (!query) return result;
+
+    return result.filter((item) => {
+      return item.name.toLowerCase().includes(query) || item.custom_id.toLowerCase().includes(query) || item.link.toLowerCase().includes(query);
     });
-  }, [links, search]);
+  }, [links, search, selectedCategory]);
 
   async function handleLogin() {
     setAuthenticating(true);
     try {
+      const redirectUrl = window.location.origin + window.location.pathname;
       const { error } = await supabase.auth.signInWithOAuth({
         provider: 'google',
         options: {
-          redirectTo: window.location.origin,
+          redirectTo: redirectUrl,
+          queryParams: {
+            prompt: 'select_account',
+          },
         },
       });
       if (error) {
-        setToast((prev) => ({ msg: 'Sign-in failed', id: prev.id + 1 }));
+        setToast((prev) => ({ msg: `Google Sign-in error: ${error.message}`, id: prev.id + 1 }));
         setAuthenticating(false);
       }
-    } catch {
-      setToast((prev) => ({ msg: 'Sign-in failed', id: prev.id + 1 }));
+    } catch (err) {
+      setToast((prev) => ({ msg: `Sign-in failed: ${err.message || 'Unknown error'}`, id: prev.id + 1 }));
       setAuthenticating(false);
     }
   }
@@ -157,9 +268,11 @@ export default function App() {
 
       if (error) throw error;
 
-      setLinks((prev) => [data, ...prev]);
+      // Attach client-side category for dynamic UI tag
+      const inserted = { ...data, category: formData.category };
+      setLinks((prev) => [inserted, ...prev]);
       setShowModal(false);
-      setToast((prev) => ({ msg: 'Link saved', id: prev.id + 1 }));
+      setToast((prev) => ({ msg: 'Link saved successfully', id: prev.id + 1 }));
     } catch {
       setToast((prev) => ({ msg: 'Could not save link', id: prev.id + 1 }));
     } finally {
@@ -170,7 +283,7 @@ export default function App() {
   async function handleCopy(link) {
     try {
       await navigator.clipboard.writeText(link);
-      setToast((prev) => ({ msg: 'Link copied', id: prev.id + 1 }));
+      setToast((prev) => ({ msg: 'Link copied to clipboard', id: prev.id + 1 }));
     } catch {
       setToast((prev) => ({ msg: 'Copy failed — please copy manually', id: prev.id + 1 }));
     }
@@ -195,7 +308,8 @@ export default function App() {
 
       if (error) throw error;
 
-      setLinks((prev) => prev.map((l) => (l.id === data.id ? data : l)));
+      const updated = { ...data, category: formData.category };
+      setLinks((prev) => prev.map((l) => (l.id === updated.id ? updated : l)));
       setEditingLink(null);
       setToast((prev) => ({ msg: 'Link updated', id: prev.id + 1 }));
     } catch {
@@ -230,7 +344,19 @@ export default function App() {
           <div className="liquid-orb liquid-orb-2" />
           <div className="liquid-orb liquid-orb-3" />
         </div>
-        <div className="loading-card">Checking session...</div>
+        <div className="loading-card">
+          <div className="spinner-ring" />
+          <span>Checking session...</span>
+          {sessionTimeout && (
+            <button
+              className="loading-fallback-btn"
+              onClick={() => setAuthLoading(false)}
+              type="button"
+            >
+              Taking too long? Go to Login
+            </button>
+          )}
+        </div>
       </div>
     );
   }
@@ -247,6 +373,7 @@ export default function App() {
         <LoginScreen onLogin={handleLogin} isAuthenticating={authenticating} />
         {toast.msg && <Toast key={toast.id} message={toast.msg} onDone={() => setToast((prev) => ({ ...prev, msg: null }))} />}
         <SpeedInsights />
+        <Analytics />
       </>
     );
   }
@@ -263,13 +390,20 @@ export default function App() {
       <div className="app">
         <Header user={user} onLogout={handleLogout} onAddLink={() => setShowModal(true)} theme={theme} toggleTheme={toggleTheme} />
 
+        <StatsBar
+          links={links}
+          selectedCategory={selectedCategory}
+          onSelectCategory={(cat) => setSelectedCategory(cat)}
+        />
+
         {links.length > 0 && !linksLoading && (
           <div className="search-container">
             <span className="search-icon"><IconSearch /></span>
             <input
+              ref={searchInputRef}
               className="search-input"
               type="text"
-              placeholder="Search links..."
+              placeholder="Search links by name, handle or URL (press / or ⌘K)..."
               value={search}
               onChange={(event) => setSearch(event.target.value)}
             />
@@ -294,6 +428,7 @@ export default function App() {
                   onCopy={handleCopy}
                   onEdit={(link) => setEditingLink(link)}
                   onDelete={handleDeleteLink}
+                  onShowQr={(link) => setQrModalItem(link)}
                 />
               ))}
             </div>
@@ -311,8 +446,17 @@ export default function App() {
           />
         )}
 
+        {qrModalItem && (
+          <QrModal
+            item={qrModalItem}
+            onClose={() => setQrModalItem(null)}
+            onCopy={handleCopy}
+          />
+        )}
+
         {toast.msg && <Toast key={toast.id} message={toast.msg} onDone={() => setToast((prev) => ({ ...prev, msg: null }))} />}
         <SpeedInsights />
+        <Analytics />
       </div>
     </>
   );

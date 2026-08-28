@@ -1,9 +1,9 @@
 import { useState, useMemo } from 'react';
 import { getAutoLogoCandidates, getInitials } from '../../utils/helpers';
-import { IconPencil, IconTrash, IconCopy, IconCheck, IconExternalLink } from '../ui/Icons';
+import { IconPencil, IconTrash, IconCopy, IconCheck, IconExternalLink, IconQrCode } from '../ui/Icons';
 import './LinkCard.css';
 
-export function LinkCard({ item, index = 0, onCopy, onEdit, onDelete }) {
+export function LinkCard({ item, index = 0, onCopy, onEdit, onDelete, onShowQr }) {
   const [failedLogos, setFailedLogos] = useState({});
   const [confirmDelete, setConfirmDelete] = useState(false);
   const [copied, setCopied] = useState(false);
@@ -13,6 +13,19 @@ export function LinkCard({ item, index = 0, onCopy, onEdit, onDelete }) {
     [item.name, item.custom_id, item.link],
   );
   const logoUrl = logoCandidates.find((url) => !failedLogos[url]) || '';
+
+  const categoryTag = useMemo(() => {
+    if (item.category) return item.category;
+    try {
+      const host = new URL(item.link).hostname.toLowerCase();
+      if (host.includes('github') || host.includes('gitlab') || host.includes('vercel') || host.includes('npm')) return 'Dev';
+      if (host.includes('twitter') || host.includes('x.com') || host.includes('linkedin') || host.includes('instagram')) return 'Social';
+      if (host.includes('figma') || host.includes('dribbble') || host.includes('behance')) return 'Design';
+      return null;
+    } catch {
+      return null;
+    }
+  }, [item.category, item.link]);
 
   function handleLogoError() {
     if (!logoUrl) return;
@@ -69,7 +82,10 @@ export function LinkCard({ item, index = 0, onCopy, onEdit, onDelete }) {
           )}
         </div>
         <div className="link-card-info">
-          <div className="link-card-name">{item.name}</div>
+          <div className="link-card-header-row">
+            <span className="link-card-name">{item.name}</span>
+            {categoryTag && <span className="link-card-tag">{categoryTag}</span>}
+          </div>
           <div className="link-card-id">
             <span className="link-card-id-pill">@{item.custom_id}</span>
           </div>
@@ -80,6 +96,14 @@ export function LinkCard({ item, index = 0, onCopy, onEdit, onDelete }) {
       </button>
 
       <div className="link-card-actions">
+        <button
+          className="link-card-action-btn link-card-action-btn--qr"
+          onClick={() => onShowQr && onShowQr(item)}
+          title="Show QR Code"
+          aria-label={`Show QR Code for ${item.name}`}
+        >
+          <IconQrCode />
+        </button>
         <a
           href={item.link}
           target="_blank"
@@ -110,4 +134,5 @@ export function LinkCard({ item, index = 0, onCopy, onEdit, onDelete }) {
     </div>
   );
 }
+
 
