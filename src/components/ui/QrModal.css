@@ -76,6 +76,10 @@
   font-weight: 700;
   color: var(--text-main);
   font-size: 0.95rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 150px;
 }
 
 .qr-item-id {
@@ -128,6 +132,8 @@
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+  flex: 1;
+  min-width: 0;
 }
 
 .qr-external-link {
@@ -187,4 +193,10 @@
 .qr-action-btn--primary:hover {
   opacity: 0.94;
   box-shadow: 0 6px 24px var(--brand-glow);
+}
+
+@media (max-width: 480px) {
+  .qr-modal-actions {
+    flex-direction: column;
+  }
 }

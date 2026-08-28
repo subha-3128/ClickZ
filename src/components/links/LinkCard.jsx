@@ -1,12 +1,26 @@
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useEffect, useRef } from 'react';
 import { getAutoLogoCandidates, getInitials } from '../../utils/helpers';
-import { IconPencil, IconTrash, IconCopy, IconCheck, IconExternalLink, IconQrCode } from '../ui/Icons';
+import { IconPencil, IconTrash, IconCopy, IconCheck, IconExternalLink, IconQrCode, IconMoreVertical } from '../ui/Icons';
 import './LinkCard.css';
 
 export function LinkCard({ item, index = 0, onCopy, onEdit, onDelete, onShowQr }) {
   const [failedLogos, setFailedLogos] = useState({});
   const [confirmDelete, setConfirmDelete] = useState(false);
   const [copied, setCopied] = useState(false);
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const menuRef = useRef(null);
+
+  useEffect(() => {
+    function handleClickOutside(event) {
+      if (menuRef.current && !menuRef.current.contains(event.target)) {
+        setIsMenuOpen(false);
+      }
+    }
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
 
   const logoCandidates = useMemo(
     () => getAutoLogoCandidates(item.name, item.custom_id, item.link),
@@ -95,8 +109,16 @@ export function LinkCard({ item, index = 0, onCopy, onEdit, onDelete, onShowQr }
         </div>
       </button>
 
-      <div className="link-card-actions">
+      <div className="link-card-actions-wrapper" ref={menuRef}>
         <button
+          className={`link-card-menu-toggle ${isMenuOpen ? 'active' : ''}`}
+          onClick={(e) => { e.preventDefault(); e.stopPropagation(); setIsMenuOpen(!isMenuOpen); }}
+          aria-label="Toggle menu"
+        >
+          <IconMoreVertical />
+        </button>
+        <div className={`link-card-actions ${isMenuOpen ? 'open' : ''}`}>
+          <button
           className="link-card-action-btn link-card-action-btn--qr"
           onClick={() => onShowQr && onShowQr(item)}
           title="Show QR Code"
@@ -130,6 +152,7 @@ export function LinkCard({ item, index = 0, onCopy, onEdit, onDelete, onShowQr }
         >
           <IconTrash />
         </button>
+        </div>
       </div>
     </div>
   );

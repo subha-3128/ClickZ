@@ -4,7 +4,6 @@ import { Analytics } from "@vercel/analytics/react";
 import { supabase } from './lib/supabase';
 import { delay } from './utils/helpers';
 import { Header } from './components/layout/Header';
-import { StatsBar } from './components/layout/StatsBar';
 import { LoginScreen } from './components/auth/LoginScreen';
 import { LinkCard } from './components/links/LinkCard';
 import { LinkForm } from './components/links/LinkForm';
@@ -389,12 +388,6 @@ export default function App() {
 
       <div className="app">
         <Header user={user} onLogout={handleLogout} onAddLink={() => setShowModal(true)} theme={theme} toggleTheme={toggleTheme} />
-
-        <StatsBar
-          links={links}
-          selectedCategory={selectedCategory}
-          onSelectCategory={(cat) => setSelectedCategory(cat)}
-        />
 
         {links.length > 0 && !linksLoading && (
           <div className="search-container">
