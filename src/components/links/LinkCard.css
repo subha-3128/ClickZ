@@ -363,7 +363,9 @@
     font-size: 0.9rem;
   }
 
-  .link-card-copy-hint {
+  .link-card-copy-hint,
+  .link-card-dot,
+  .link-card-url {
     display: none;
   }
 
