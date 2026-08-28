@@ -1,86 +1,111 @@
-/* ---------- Link List ---------- */
+/* ===================================================
+   CLICKZ — Premium Modern Minimalist Link Card
+   =================================================== */
+
 .link-list {
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 10px;
   position: relative;
 }
 
-/* ---------- Minimalist Link Card ---------- */
+/* ---------- Card Container ---------- */
 .link-card {
   width: 100%;
   background: var(--surface);
   border: 1px solid var(--border);
-  border-radius: var(--radius-md);
+  border-radius: var(--radius-lg);
   box-shadow: var(--shadow-sm);
   display: flex;
   align-items: center;
-  padding: 6px 8px 6px 6px;
-  transition: background var(--transition-fast), border-color var(--transition-fast), transform var(--transition-fast);
+  padding: 8px 12px 8px 8px;
+  transition: 
+    background var(--transition-fast),
+    border-color var(--transition-fast),
+    box-shadow var(--transition-fast),
+    transform var(--transition-fast);
   position: relative;
   overflow: visible;
-  animation: slideUpFade 200ms var(--transition-base) both;
+  animation: slideUpFade 220ms var(--transition-base) both;
   z-index: 1;
 }
 
 .link-card:hover {
   background: var(--surface-hover);
   border-color: var(--border-hover);
+  box-shadow: var(--shadow-md);
+  transform: translateY(-1.5px);
 }
 
 .link-card.menu-open {
   z-index: 80 !important;
   border-color: var(--border-hover);
+  box-shadow: var(--shadow-md);
 }
 
 .link-card.copied {
   border-color: var(--success);
+  box-shadow: 0 0 0 1px var(--success-subtle), var(--shadow-sm);
 }
 
-/* ---------- Card Main Clickable Area ---------- */
+/* ---------- Card Main Interactive Area ---------- */
 .link-card-main {
   flex: 1;
   min-width: 0;
   display: flex;
   align-items: center;
-  gap: 12px;
-  padding: 6px 8px;
+  gap: 14px;
+  padding: 6px 10px 6px 8px;
   background: transparent;
   border: none;
   color: inherit;
   cursor: pointer;
   text-align: left;
-  border-radius: var(--radius-sm);
+  border-radius: var(--radius-md);
+  transition: background var(--transition-fast);
 }
 
-/* Logo / Favicon Container */
+.link-card-main:hover {
+  background: var(--surface-raised);
+}
+
+/* ---------- Favicon / Logo Badge ---------- */
 .link-card-logo {
-  width: 36px;
-  height: 36px;
-  border-radius: var(--radius-sm);
+  width: 42px;
+  height: 42px;
+  border-radius: var(--radius-md);
   background: var(--surface-raised);
   border: 1px solid var(--border-subtle);
   display: grid;
   place-items: center;
-  color: var(--text-soft);
-  font-weight: 600;
-  font-size: 13px;
+  color: var(--text-main);
+  font-weight: 700;
+  font-size: 14px;
   flex-shrink: 0;
   overflow: hidden;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.06), 0 2px 4px rgba(0, 0, 0, 0.15);
+  transition: transform var(--transition-fast);
+}
+
+.link-card:hover .link-card-logo {
+  transform: scale(1.04);
 }
 
 .link-card-logo img {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  display: block;
 }
 
 .link-card-logo.fallback {
   background: var(--surface-raised);
   color: var(--text-soft);
+  font-family: var(--font-family);
+  font-weight: 700;
 }
 
-/* Info Details */
+/* ---------- Info Details ---------- */
 .link-card-info {
   flex: 1;
   min-width: 0;
@@ -94,20 +119,21 @@
 
 .link-card-name {
   font-weight: 600;
-  font-size: 0.9rem;
+  font-size: 0.95rem;
   color: var(--text-main);
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  letter-spacing: -0.01em;
+  letter-spacing: -0.015em;
+  line-height: 1.3;
 }
 
 .link-card-meta {
   display: flex;
   align-items: center;
-  gap: 6px;
-  margin-top: 2px;
-  font-size: 0.78rem;
+  gap: 7px;
+  margin-top: 3px;
+  font-size: 0.8rem;
   color: var(--text-dim);
 }
 
@@ -115,29 +141,45 @@
   color: var(--text-soft);
   font-weight: 500;
   font-family: var(--font-mono);
-  font-size: 0.74rem;
+  font-size: 0.72rem;
+  background: var(--surface-raised);
+  border: 1px solid var(--border-subtle);
+  padding: 1.5px 6px;
+  border-radius: var(--radius-sm);
 }
 
 .link-card-dot {
   color: var(--border-hover);
+  font-size: 0.7rem;
 }
 
 .link-card-url {
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+  color: var(--text-dim);
+  transition: color var(--transition-fast);
 }
 
-/* Copy Hint */
+.link-card:hover .link-card-url {
+  color: var(--text-soft);
+}
+
+/* ---------- Copy Hint & Success Badge ---------- */
 .link-card-copy-hint {
-  width: 28px;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
   height: 28px;
-  border-radius: var(--radius-sm);
-  display: grid;
-  place-items: center;
+  padding: 0 8px;
+  border-radius: var(--radius-pill);
+  border: 1px solid transparent;
+  background: transparent;
   color: var(--text-dim);
+  font-size: 0.76rem;
+  font-weight: 500;
   opacity: 0;
-  transition: opacity var(--transition-fast), color var(--transition-fast);
+  transition: opacity var(--transition-fast), background var(--transition-fast), color var(--transition-fast), border-color var(--transition-fast);
   flex-shrink: 0;
 }
 
@@ -147,22 +189,36 @@
 }
 
 .link-card:hover .link-card-copy-hint {
-  opacity: 1;
+  opacity: 0.7;
+}
+
+.link-card-copy-hint:hover {
+  opacity: 1 !important;
+  background: var(--surface-hover);
+  color: var(--text-main);
+  border-color: var(--border-subtle);
 }
 
 .link-card-copy-hint.copied,
 .link-card.copied .link-card-copy-hint {
-  opacity: 1;
+  opacity: 1 !important;
   color: var(--success);
+  background: var(--success-subtle);
+  border-color: rgba(16, 185, 129, 0.25);
 }
 
-/* ---------- Action Buttons (Desktop) ---------- */
+.copied-text {
+  font-weight: 600;
+  font-size: 0.75rem;
+}
+
+/* ---------- Action Buttons (Desktop Segmented Toolbar) ---------- */
 .link-card-actions-wrapper {
   position: relative;
   display: flex;
   align-items: center;
   flex-shrink: 0;
-  margin-left: 4px;
+  margin-left: 8px;
 }
 
 .link-card-menu-toggle {
@@ -172,8 +228,18 @@
 .link-card-actions {
   display: flex;
   align-items: center;
-  gap: 4px;
+  gap: 2px;
+  background: var(--surface-raised);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  padding: 3px;
   flex-shrink: 0;
+  opacity: 0.8;
+  transition: opacity var(--transition-fast);
+}
+
+.link-card:hover .link-card-actions {
+  opacity: 1;
 }
 
 .mobile-action-label {
@@ -181,12 +247,12 @@
 }
 
 .link-card-action-btn {
-  width: 30px;
-  height: 30px;
+  width: 28px;
+  height: 28px;
   border-radius: var(--radius-sm);
   border: 1px solid transparent;
   background: transparent;
-  color: var(--text-dim);
+  color: var(--text-soft);
   cursor: pointer;
   display: grid;
   place-items: center;
@@ -195,35 +261,38 @@
 }
 
 .link-card-action-btn svg {
-  width: 15px;
-  height: 15px;
+  width: 14px;
+  height: 14px;
 }
 
 .link-card-action-btn:hover {
-  background: var(--surface-raised);
-  border-color: var(--border-subtle);
+  background: var(--surface);
+  border-color: var(--border);
   color: var(--text-main);
+  box-shadow: var(--shadow-sm);
 }
 
 .link-card-action-btn--delete:hover {
   background: var(--danger-subtle);
   border-color: transparent;
   color: var(--danger);
+  box-shadow: none;
 }
 
-/* ---------- Delete Confirmation ---------- */
+/* ---------- Delete Confirmation State ---------- */
 .link-card--confirm {
   justify-content: space-between;
-  padding: 10px 14px;
+  padding: 12px 16px;
   border-color: var(--danger);
   background: var(--danger-subtle);
+  border-radius: var(--radius-lg);
 }
 
 .link-card-confirm-text {
   display: flex;
   align-items: center;
-  gap: 8px;
-  font-size: 0.85rem;
+  gap: 10px;
+  font-size: 0.88rem;
   color: var(--danger);
   font-weight: 500;
 }
@@ -235,17 +304,17 @@
 
 .link-card-confirm-actions {
   display: flex;
-  gap: 6px;
+  gap: 8px;
 }
 
 .link-card-confirm-btn {
-  height: 28px;
-  padding: 0 10px;
+  height: 30px;
+  padding: 0 12px;
   border-radius: var(--radius-sm);
-  font-size: 0.78rem;
+  font-size: 0.8rem;
   font-weight: 600;
   cursor: pointer;
-  transition: background var(--transition-fast);
+  transition: all var(--transition-fast);
 }
 
 .link-card-confirm-btn--cancel {
@@ -256,6 +325,7 @@
 
 .link-card-confirm-btn--cancel:hover {
   background: var(--surface-hover);
+  border-color: var(--border-hover);
 }
 
 .link-card-confirm-btn--danger {
@@ -271,7 +341,26 @@
 /* ---------- Mobile Responsive Dropdown (<= 768px) ---------- */
 @media (max-width: 768px) {
   .link-card {
-    padding: 6px 8px;
+    padding: 8px;
+    border-radius: var(--radius-md);
+  }
+
+  .link-card:hover {
+    transform: none;
+  }
+
+  .link-card-main {
+    padding: 4px 6px;
+    gap: 10px;
+  }
+
+  .link-card-logo {
+    width: 38px;
+    height: 38px;
+  }
+
+  .link-card-name {
+    font-size: 0.9rem;
   }
 
   .link-card-copy-hint {
@@ -280,7 +369,7 @@
 
   .link-card-actions-wrapper {
     display: block;
-    position: relative;
+    margin-left: 4px;
     z-index: 20;
   }
 
@@ -288,8 +377,8 @@
     display: flex !important;
     align-items: center;
     justify-content: center;
-    width: 34px;
-    height: 34px;
+    width: 36px;
+    height: 36px;
     border-radius: var(--radius-sm);
     border: 1px solid var(--border);
     background: var(--surface-raised);
@@ -315,46 +404,50 @@
 
   .link-card-actions {
     display: none;
-  }
-
-  .link-card-actions.open {
-    display: flex !important;
-    position: absolute;
-    top: calc(100% + 6px);
-    right: 0;
-    flex-direction: column;
-    align-items: stretch;
     background: var(--surface);
     border: 1px solid var(--border);
     border-radius: var(--radius-md);
     padding: 6px;
     box-shadow: var(--shadow-lg);
+  }
+
+  .link-card-actions.open {
+    display: flex !important;
+    position: absolute;
+    top: calc(100% + 8px);
+    right: 0;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 2px;
     z-index: 1000 !important;
-    min-width: 150px;
-    animation: slideDownFade 120ms var(--transition-fast) both;
+    min-width: 160px;
+    animation: slideDownFade 140ms var(--transition-fast) both;
   }
 
   .mobile-action-label {
     display: inline;
-    font-size: 0.82rem;
+    font-size: 0.84rem;
     font-weight: 500;
   }
 
   .link-card-action-btn {
     width: 100%;
-    height: 34px;
+    height: 36px;
     border-radius: var(--radius-sm);
     display: flex;
     align-items: center;
     justify-content: flex-start;
     gap: 10px;
-    padding: 0 10px;
+    padding: 0 12px;
     color: var(--text-main);
+    background: transparent;
+    border: none;
+    box-shadow: none;
   }
 
   .link-card-action-btn svg {
-    width: 15px;
-    height: 15px;
+    width: 16px;
+    height: 16px;
     flex-shrink: 0;
   }
 

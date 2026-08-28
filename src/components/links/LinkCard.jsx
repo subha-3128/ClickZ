@@ -48,12 +48,14 @@ export function LinkCard({ item, index = 0, onCopy, onEdit, onDelete, onShowQr }
         </div>
         <div className="link-card-confirm-actions">
           <button
+            type="button"
             className="link-card-confirm-btn link-card-confirm-btn--cancel"
             onClick={() => setConfirmDelete(false)}
           >
             Cancel
           </button>
           <button
+            type="button"
             className="link-card-confirm-btn link-card-confirm-btn--danger"
             onClick={() => onDelete(item.id)}
           >
@@ -70,6 +72,7 @@ export function LinkCard({ item, index = 0, onCopy, onEdit, onDelete, onShowQr }
       style={{ animationDelay: `${Math.min(index, 10) * 30}ms` }}
     >
       <button
+        type="button"
         className="link-card-main"
         onClick={handleCardClick}
         title="Click to copy link"
@@ -95,7 +98,14 @@ export function LinkCard({ item, index = 0, onCopy, onEdit, onDelete, onShowQr }
         </div>
 
         <div className={`link-card-copy-hint ${copied ? 'copied' : ''}`} aria-hidden="true">
-          {copied ? <IconCheck /> : <IconCopy />}
+          {copied ? (
+            <>
+              <IconCheck />
+              <span className="copied-text">Copied</span>
+            </>
+          ) : (
+            <IconCopy />
+          )}
         </div>
       </button>
 
