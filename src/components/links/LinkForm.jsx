@@ -3,14 +3,11 @@ import { isValidUrl, getInitials } from '../../utils/helpers';
 import { IconX } from '../ui/Icons';
 import './LinkForm.css';
 
-const CATEGORY_OPTIONS = ['Dev', 'Social', 'Design', 'Work', 'Personal'];
-
 export function LinkForm({ onSave, onCancel, saving, initialData }) {
   const isEditing = Boolean(initialData);
   const [name, setName] = useState(initialData?.name || '');
   const [customId, setCustomId] = useState(initialData?.custom_id || '');
   const [link, setLink] = useState(initialData?.link || '');
-  const [category, setCategory] = useState(initialData?.category || 'Dev');
   const [errors, setErrors] = useState({});
   const nameRef = useRef(null);
 
@@ -65,7 +62,6 @@ export function LinkForm({ onSave, onCancel, saving, initialData }) {
       name: name.trim(),
       customId: customId.trim(),
       link: link.trim(),
-      category,
     });
   }
 
@@ -137,22 +133,6 @@ export function LinkForm({ onSave, onCancel, saving, initialData }) {
             </div>
           </div>
 
-          <div className="form-group">
-            <label className="form-label">Category</label>
-            <div className="form-category-chips">
-              {CATEGORY_OPTIONS.map((cat) => (
-                <button
-                  type="button"
-                  key={cat}
-                  className={`form-category-chip ${category === cat ? 'selected' : ''}`}
-                  onClick={() => setCategory(cat)}
-                >
-                  {cat}
-                </button>
-              ))}
-            </div>
-          </div>
-
           {/* Live Preview */}
           <div className="form-preview-box">
             <div className="form-preview-label">Preview</div>
@@ -164,8 +144,6 @@ export function LinkForm({ onSave, onCancel, saving, initialData }) {
                 <div className="form-preview-name">{name || 'Link Title'}</div>
                 <div className="form-preview-meta">
                   <span>@{customId || 'handle'}</span>
-                  <span>•</span>
-                  <span>{category}</span>
                 </div>
               </div>
             </div>

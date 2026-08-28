@@ -3,6 +3,7 @@
   display: flex;
   flex-direction: column;
   gap: 8px;
+  position: relative;
 }
 
 /* ---------- Minimalist Link Card ---------- */
@@ -14,15 +15,21 @@
   box-shadow: var(--shadow-sm);
   display: flex;
   align-items: center;
-  padding: 6px 10px 6px 6px;
+  padding: 6px 8px 6px 6px;
   transition: background var(--transition-fast), border-color var(--transition-fast), transform var(--transition-fast);
   position: relative;
   overflow: visible;
   animation: slideUpFade 200ms var(--transition-base) both;
+  z-index: 1;
 }
 
 .link-card:hover {
   background: var(--surface-hover);
+  border-color: var(--border-hover);
+}
+
+.link-card.menu-open {
+  z-index: 80 !important;
   border-color: var(--border-hover);
 }
 
@@ -95,18 +102,6 @@
   letter-spacing: -0.01em;
 }
 
-.link-card-tag {
-  font-size: 0.68rem;
-  font-weight: 600;
-  color: var(--text-dim);
-  background: var(--surface-raised);
-  border: 1px solid var(--border-subtle);
-  padding: 1px 6px;
-  border-radius: var(--radius-sm);
-  text-transform: uppercase;
-  letter-spacing: 0.03em;
-}
-
 .link-card-meta {
   display: flex;
   align-items: center;
@@ -167,6 +162,7 @@
   display: flex;
   align-items: center;
   flex-shrink: 0;
+  margin-left: 4px;
 }
 
 .link-card-menu-toggle {
@@ -275,75 +271,102 @@
 /* ---------- Mobile Responsive Dropdown (<= 768px) ---------- */
 @media (max-width: 768px) {
   .link-card {
-    padding: 6px 6px 6px 6px;
+    padding: 6px 8px;
+  }
+
+  .link-card-copy-hint {
+    display: none;
+  }
+
+  .link-card-actions-wrapper {
+    display: block;
+    position: relative;
+    z-index: 20;
   }
 
   .link-card-menu-toggle {
-    display: flex;
+    display: flex !important;
     align-items: center;
     justify-content: center;
-    width: 32px;
-    height: 32px;
+    width: 34px;
+    height: 34px;
     border-radius: var(--radius-sm);
     border: 1px solid var(--border);
     background: var(--surface-raised);
-    color: var(--text-soft);
+    color: var(--text-main);
     cursor: pointer;
     transition: all var(--transition-fast);
-    flex-shrink: 0;
+    padding: 0;
+    box-shadow: var(--shadow-sm);
+  }
+
+  .link-card-menu-toggle svg {
+    width: 18px;
+    height: 18px;
+    display: block;
   }
 
   .link-card-menu-toggle:hover,
   .link-card-menu-toggle.active {
     background: var(--surface-hover);
     border-color: var(--border-hover);
-    color: var(--text-main);
-  }
-
-  .link-card-menu-toggle svg {
-    width: 16px;
-    height: 16px;
+    color: var(--accent);
   }
 
   .link-card-actions {
+    display: none;
+  }
+
+  .link-card-actions.open {
+    display: flex !important;
     position: absolute;
-    top: calc(100% + 4px);
+    top: calc(100% + 6px);
     right: 0;
     flex-direction: column;
     align-items: stretch;
     background: var(--surface);
     border: 1px solid var(--border);
     border-radius: var(--radius-md);
-    padding: 4px;
+    padding: 6px;
     box-shadow: var(--shadow-lg);
-    opacity: 0;
-    pointer-events: none;
-    transform: translateY(-4px) scale(0.96);
-    transition: opacity var(--transition-fast), transform var(--transition-fast);
-    z-index: 50;
-    min-width: 140px;
-  }
-
-  .link-card-actions.open {
-    opacity: 1;
-    pointer-events: auto;
-    transform: translateY(0) scale(1);
+    z-index: 1000 !important;
+    min-width: 150px;
+    animation: slideDownFade 120ms var(--transition-fast) both;
   }
 
   .mobile-action-label {
     display: inline;
-    font-size: 0.8rem;
+    font-size: 0.82rem;
     font-weight: 500;
   }
 
   .link-card-action-btn {
     width: 100%;
-    height: 32px;
+    height: 34px;
     border-radius: var(--radius-sm);
     display: flex;
     align-items: center;
     justify-content: flex-start;
-    gap: 8px;
+    gap: 10px;
     padding: 0 10px;
+    color: var(--text-main);
+  }
+
+  .link-card-action-btn svg {
+    width: 15px;
+    height: 15px;
+    flex-shrink: 0;
+  }
+
+  .link-card-action-btn:hover {
+    background: var(--surface-raised);
+  }
+
+  .link-card-action-btn--delete {
+    color: var(--danger);
+  }
+
+  .link-card-action-btn--delete:hover {
+    background: var(--danger-subtle);
   }
 }

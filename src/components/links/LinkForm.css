@@ -126,37 +126,6 @@
   gap: 12px;
 }
 
-/* Category Chips */
-.form-category-chips {
-  display: flex;
-  gap: 6px;
-  flex-wrap: wrap;
-}
-
-.form-category-chip {
-  padding: 4px 10px;
-  border-radius: var(--radius-sm);
-  border: 1px solid var(--border);
-  background: var(--surface-raised);
-  color: var(--text-soft);
-  font-size: 0.78rem;
-  font-weight: 500;
-  cursor: pointer;
-  transition: all var(--transition-fast);
-}
-
-.form-category-chip:hover {
-  border-color: var(--border-hover);
-  color: var(--text-main);
-}
-
-.form-category-chip.selected {
-  background: var(--text-main);
-  color: var(--app-bg);
-  border-color: var(--text-main);
-  font-weight: 600;
-}
-
 /* Preview Box */
 .form-preview-box {
   margin: 18px 0;

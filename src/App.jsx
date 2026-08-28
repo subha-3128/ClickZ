@@ -248,8 +248,7 @@ export default function App() {
 
       if (error) throw error;
 
-      const inserted = { ...data, category: formData.category };
-      setLinks((prev) => [inserted, ...prev]);
+      setLinks((prev) => [data, ...prev]);
       setShowModal(false);
       setToast((prev) => ({ msg: 'Link saved successfully', id: prev.id + 1 }));
     } catch {
@@ -287,8 +286,7 @@ export default function App() {
 
       if (error) throw error;
 
-      const updated = { ...data, category: formData.category };
-      setLinks((prev) => prev.map((l) => (l.id === updated.id ? updated : l)));
+      setLinks((prev) => prev.map((l) => (l.id === data.id ? data : l)));
       setEditingLink(null);
       setToast((prev) => ({ msg: 'Link updated', id: prev.id + 1 }));
     } catch {

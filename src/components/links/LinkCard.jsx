@@ -28,19 +28,6 @@ export function LinkCard({ item, index = 0, onCopy, onEdit, onDelete, onShowQr }
   );
   const logoUrl = logoCandidates.find((url) => !failedLogos[url]) || '';
 
-  const categoryTag = useMemo(() => {
-    if (item.category) return item.category;
-    try {
-      const host = new URL(item.link).hostname.toLowerCase();
-      if (host.includes('github') || host.includes('gitlab') || host.includes('vercel') || host.includes('npm')) return 'Dev';
-      if (host.includes('twitter') || host.includes('x.com') || host.includes('linkedin') || host.includes('instagram')) return 'Social';
-      if (host.includes('figma') || host.includes('dribbble') || host.includes('behance')) return 'Design';
-      return null;
-    } catch {
-      return null;
-    }
-  }, [item.category, item.link]);
-
   function handleLogoError() {
     if (!logoUrl) return;
     setFailedLogos((prev) => ({ ...prev, [logoUrl]: true }));
@@ -79,7 +66,7 @@ export function LinkCard({ item, index = 0, onCopy, onEdit, onDelete, onShowQr }
 
   return (
     <div
-      className={`link-card ${copied ? 'copied' : ''}`}
+      className={`link-card ${copied ? 'copied' : ''} ${isMenuOpen ? 'menu-open' : ''}`}
       style={{ animationDelay: `${Math.min(index, 10) * 30}ms` }}
     >
       <button
@@ -99,7 +86,6 @@ export function LinkCard({ item, index = 0, onCopy, onEdit, onDelete, onShowQr }
         <div className="link-card-info">
           <div className="link-card-header-row">
             <span className="link-card-name">{item.name}</span>
-            {categoryTag && <span className="link-card-tag">{categoryTag}</span>}
           </div>
           <div className="link-card-meta">
             <span className="link-card-id">@{item.custom_id}</span>
@@ -115,19 +101,21 @@ export function LinkCard({ item, index = 0, onCopy, onEdit, onDelete, onShowQr }
 
       <div className="link-card-actions-wrapper" ref={menuRef}>
         <button
+          type="button"
           className={`link-card-menu-toggle ${isMenuOpen ? 'active' : ''}`}
           onClick={(e) => {
             e.preventDefault();
             e.stopPropagation();
-            setIsMenuOpen(!isMenuOpen);
+            setIsMenuOpen((prev) => !prev);
           }}
-          aria-label="More options"
+          aria-label="Options"
         >
           <IconMoreVertical />
         </button>
 
         <div className={`link-card-actions ${isMenuOpen ? 'open' : ''}`}>
           <button
+            type="button"
             className="link-card-action-btn"
             onClick={() => {
               setIsMenuOpen(false);
@@ -152,6 +140,7 @@ export function LinkCard({ item, index = 0, onCopy, onEdit, onDelete, onShowQr }
             <span className="mobile-action-label">Open link</span>
           </a>
           <button
+            type="button"
             className="link-card-action-btn"
             onClick={() => {
               setIsMenuOpen(false);
@@ -164,6 +153,7 @@ export function LinkCard({ item, index = 0, onCopy, onEdit, onDelete, onShowQr }
             <span className="mobile-action-label">Edit</span>
           </button>
           <button
+            type="button"
             className="link-card-action-btn link-card-action-btn--delete"
             onClick={() => {
               setIsMenuOpen(false);
