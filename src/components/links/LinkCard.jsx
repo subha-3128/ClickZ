@@ -1,6 +1,6 @@
 import { useState, useMemo, useEffect, useRef } from 'react';
-import { getAutoLogoCandidates, getInitials } from '../../utils/helpers';
-import { IconPencil, IconTrash, IconCopy, IconCheck, IconExternalLink, IconQrCode, IconMoreVertical } from '../ui/Icons';
+import { getAutoLogoCandidates, getInitials } from '../../utils';
+import { IconPencil, IconTrash, IconCopy, IconCheck, IconExternalLink, IconQrCode, IconMoreVertical } from '../ui';
 import './LinkCard.css';
 
 export function LinkCard({ item, index = 0, onCopy, onEdit, onDelete, onShowQr }) {

@@ -1,6 +1,6 @@
 import { useState, useRef, useEffect } from 'react';
-import { getInitials } from '../../utils/helpers';
-import { IconPlus, IconSun, IconMoon } from '../ui/Icons';
+import { getInitials } from '../../utils';
+import { IconPlus, IconSun, IconMoon } from '../ui';
 import './Header.css';
 
 export function Header({ user, onLogout, onAddLink, theme, toggleTheme }) {

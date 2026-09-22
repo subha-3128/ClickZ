@@ -1,6 +1,6 @@
 import { useState, useRef, useEffect } from 'react';
-import { isValidUrl, getInitials } from '../../utils/helpers';
-import { IconX } from '../ui/Icons';
+import { isValidUrl, getInitials } from '../../utils';
+import { IconX } from '../ui';
 import './LinkForm.css';
 
 export function LinkForm({ onSave, onCancel, saving, initialData }) {

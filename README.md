@@ -155,7 +155,7 @@ graph TD
 ```
 ClickZ/
 ├── public/
-│   ├── favicon.svg            # Primary SVG vector icon
+│   ├── favicon.svg            # Primary SVG vector icon & PWA generation source
 │   ├── manifest.webmanifest   # PWA manifest metadata and standalone display config
 │   ├── og-image.png           # 1200x630 OpenGraph social share card
 │   ├── pwa-192.png            # 192x192 PNG application icon
@@ -164,33 +164,42 @@ ClickZ/
 │   ├── robots.txt             # Search engine crawling rules
 │   ├── sitemap.xml            # Search engine XML sitemap
 │   └── sw.js                  # Service Worker for cache-first and runtime offline support
+├── scripts/
+│   └── generate-icons.js      # Utility script using Sharp to render PWA PNGs from SVG
 ├── src/
 │   ├── components/
 │   │   ├── auth/              # Authentication view & Google login CTA
 │   │   │   ├── LoginScreen.jsx
-│   │   │   └── LoginScreen.css
+│   │   │   ├── LoginScreen.css
+│   │   │   └── index.js
 │   │   ├── layout/            # Application header, theme toggle & user profile dropdown
 │   │   │   ├── Header.jsx
-│   │   │   └── Header.css
+│   │   │   ├── Header.css
+│   │   │   └── index.js
 │   │   ├── links/             # Link display cards, creation/editing modals & skeletons
 │   │   │   ├── LinkCard.jsx
 │   │   │   ├── LinkCard.css
 │   │   │   ├── LinkForm.jsx
 │   │   │   ├── LinkForm.css
 │   │   │   ├── SkeletonList.jsx
-│   │   │   └── SkeletonList.css
-│   │   └── ui/                # Reusable UI primitives (QR modal, toasts, empty state, icons)
-│   │       ├── EmptyState.jsx
-│   │       ├── EmptyState.css
-│   │       ├── Icons.jsx
-│   │       ├── QrModal.jsx
-│   │       ├── QrModal.css
-│   │       ├── Toast.jsx
-│   │       └── Toast.css
+│   │   │   ├── SkeletonList.css
+│   │   │   └── index.js
+│   │   ├── ui/                # Reusable UI primitives (QR modal, toasts, empty state, icons)
+│   │   │   ├── EmptyState.jsx
+│   │   │   ├── EmptyState.css
+│   │   │   ├── Icons.jsx
+│   │   │   ├── QrModal.jsx
+│   │   │   ├── QrModal.css
+│   │   │   ├── Toast.jsx
+│   │   │   ├── Toast.css
+│   │   │   └── index.js
+│   │   └── index.js           # Master component barrel export
 │   ├── lib/
-│   │   └── supabase.js        # Supabase JS client configuration with PKCE flow
+│   │   ├── supabase.js        # Supabase JS client configuration with PKCE flow
+│   │   └── index.js           # Library module barrel export
 │   ├── utils/
-│   │   └── helpers.js         # Slug generation, URL validation, auto-logo candidate resolvers
+│   │   ├── helpers.js         # Slug generation, URL validation, auto-logo candidate resolvers
+│   │   └── index.js           # Utility module barrel export
 │   ├── App.jsx                # Main application orchestrator, state manager & shortcut listener
 │   ├── App.css                # Color tokens, layout primitives, and component utilities
 │   ├── index.css              # Global resets, typography tokens & keyframe animations
@@ -199,8 +208,8 @@ ClickZ/
 │   ├── migrations/            # SQL migration timestamp files
 │   ├── config.toml            # Supabase local configuration
 │   └── schema.sql             # Complete database schema, RLS policies, indexes & storage
+├── .env.example               # Safe environment variable template with placeholder keys
 ├── eslint.config.js           # ESLint 9 configuration with React hooks rules
-├── generate-icons.js          # Node.js script using Sharp to render PWA PNGs from SVG
 ├── index.html                 # HTML5 document shell with SEO meta tags & Schema.org JSON-LD
 ├── package.json               # Dependencies, scripts, and package metadata
 └── vite.config.js             # Vite 8 configuration with React plugin
@@ -267,7 +276,7 @@ npm run lint
 
 *(Optional)* To regenerate PWA icon assets from `public/favicon.svg`:
 ```bash
-node generate-icons.js
+npm run generate:icons
 ```
 
 ---

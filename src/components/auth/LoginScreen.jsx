@@ -1,4 +1,4 @@
-import { IconGithub, IconLinkedin } from '../ui/Icons';
+import { IconGithub, IconLinkedin } from '../ui';
 import './LoginScreen.css';
 
 export function LoginScreen({ onLogin, isAuthenticating }) {

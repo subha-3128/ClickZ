@@ -1,17 +1,12 @@
 import { useCallback, useEffect, useMemo, useState, useRef } from 'react';
 import { SpeedInsights } from '@vercel/speed-insights/react';
 import { Analytics } from "@vercel/analytics/react";
-import { supabase } from './lib/supabase';
-import { delay } from './utils/helpers';
-import { Header } from './components/layout/Header';
-import { LoginScreen } from './components/auth/LoginScreen';
-import { LinkCard } from './components/links/LinkCard';
-import { LinkForm } from './components/links/LinkForm';
-import { SkeletonList } from './components/links/SkeletonList';
-import { Toast } from './components/ui/Toast';
-import { EmptyState } from './components/ui/EmptyState';
-import { QrModal } from './components/ui/QrModal';
-import { IconSearch, IconX } from './components/ui/Icons';
+import { supabase } from './lib';
+import { delay } from './utils';
+import { Header } from './components/layout';
+import { LoginScreen } from './components/auth';
+import { LinkCard, LinkForm, SkeletonList } from './components/links';
+import { Toast, EmptyState, QrModal, IconSearch, IconX } from './components/ui';
 import './App.css';
 
 export default function App() {
