@@ -1,6 +1,6 @@
 # ClickZ
 
-**🔗 Live Website:** https://click-z.vercel.app/
+**Live Website:** https://click-z.vercel.app/
 
 <div align="center">
   <img src="public/pwa-512.png" alt="ClickZ Logo" width="100" />
@@ -29,7 +29,7 @@
 **ClickZ** is a modern, responsive personal link management web application designed to eliminate bookmark clutter and make daily web navigation instantaneous.
 
 ### The Problem It Solves
-Web browsers have native bookmark bars, but they quickly turn into unorganized graveyards of stale URLs, cannot easily be shared or opened as QR codes, lack uniform visual identity across devices, and require multiple clicks to search or manage.
+Web browsers have native bookmark bars, but they quickly turn into unorganized collections of stale URLs, cannot easily be shared or opened as QR codes, lack uniform visual identity across devices, and require multiple clicks to search or manage.
 
 ClickZ solves this by providing a unified, cloud-synchronized dashboard where you can store, edit, and access all your essential destinations with:
 - Zero visual clutter and an ultra-clean UI.
@@ -49,20 +49,20 @@ Users authenticate with Google OAuth via Supabase Auth (PKCE flow). All link rec
 
 ## 2. Key Features
 
-- **🔐 One-Click Google OAuth**: Seamless, passwordless authentication powered by Supabase Auth with PKCE verification and automated session persistence.
-- **⚡ Zero-Latency Search**: Real-time client-side fuzzy filtering across link titles, `@handles`, and destination URLs with instant results as you type.
-- **🎯 Smart Logo Discovery**: Auto-detects domain brands and fetches high-resolution SVG logos through the Iconify API, falling back to clean initialed avatar badges when unavailable.
-- **📱 Dynamic QR Code Generator**: Generates clean, scannable QR codes for any saved link via QR Server API, complete with one-click direct PNG download and direct URL preview.
-- **🪄 Intelligent URL Auto-Fill**: Paste any valid URL into the creation modal; ClickZ automatically parses the domain to pre-populate title text and generate a clean handle slug.
-- **📋 One-Click Clipboard Copying**: Click any link card to copy its URL directly to your clipboard, accompanied by an animated checkmark state and floating toast notification.
-- **⌨️ Keyboard-First Shortcuts**:
-  - `⌘K` or `/` : Jump directly into the search bar.
+- **One-Click Google OAuth**: Seamless, passwordless authentication powered by Supabase Auth with PKCE verification and automated session persistence.
+- **Zero-Latency Search**: Real-time client-side fuzzy filtering across link titles, `@handles`, and destination URLs with instant results as you type.
+- **Smart Logo Discovery**: Auto-detects domain brands and fetches high-resolution SVG logos through the Iconify API, falling back to clean initialed avatar badges when unavailable.
+- **Dynamic QR Code Generator**: Generates clean, scannable QR codes for any saved link via QR Server API, complete with one-click direct PNG download and direct URL preview.
+- **Intelligent URL Auto-Fill**: Paste any valid URL into the creation modal; ClickZ automatically parses the domain to pre-populate title text and generate a clean handle slug.
+- **One-Click Clipboard Copying**: Click any link card to copy its URL directly to your clipboard, accompanied by an animated checkmark state and floating toast notification.
+- **Keyboard-First Shortcuts**:
+  - `Cmd+K` or `/` : Jump directly into the search bar.
   - `N` : Open the New Link modal from anywhere.
   - `Escape` : Clear search query or close active modals.
-- **🛡️ Safe CRUD Operations**: Add, view, edit title/handle/URL, open in a new tab, and delete links with double-check confirmation safeguards.
-- **🌓 Dual Theme Architecture**: Carefully curated Dark and Light modes using modern zinc-foundation CSS variables, with local storage persistence and system preference synchronization.
-- **📲 PWA & Offline Support**: Custom Service Worker (`sw.js`) implementation with cache-first and runtime caching strategies, installable on mobile and desktop platforms.
-- **📊 Performance & Analytics**: Integrated `@vercel/speed-insights` and `@vercel/analytics` for core web vitals and interaction telemetry.
+- **Safe CRUD Operations**: Add, view, edit title/handle/URL, open in a new tab, and delete links with double-check confirmation safeguards.
+- **Dual Theme Architecture**: Carefully curated Dark and Light modes using modern zinc-foundation CSS variables, with local storage persistence and system preference synchronization.
+- **PWA & Offline Support**: Custom Service Worker (`sw.js`) implementation with cache-first and runtime caching strategies, installable on mobile and desktop platforms.
+- **Performance & Analytics**: Integrated `@vercel/speed-insights` and `@vercel/analytics` for core web vitals and interaction telemetry.
 
 ---
 
@@ -97,18 +97,18 @@ Users authenticate with Google OAuth via Supabase Auth (PKCE flow). All link rec
  │  App Dashboard │ <───────────────────────────> │  (public.links)   │
  └────────────────┘                               └───────────────────┘
          │
-         ├─► [⌘K or /] Instant In-Memory Search (title / handle / url)
+         ├─► [Cmd+K or /] Instant In-Memory Search (title / handle / url)
          ├─► [N] New Link Modal ──> Smart URL Parse & Live Preview
          ├─► [Card Click] Copies link to clipboard + Toast confirmation
          ├─► [QR Modal] Fetches QR Code from QR Server API + PNG Download
-         └─► [Theme Toggle] Switches Zinc Dark ↔ Clean Light mode
+         └─► [Theme Toggle] Switches Zinc Dark <-> Clean Light mode
 ```
 
 1. **Authentication**: When an unauthenticated visitor lands on ClickZ, the `LoginScreen` presents a one-click Google Sign-in button. Initiating login redirects to Google OAuth via Supabase with PKCE verification. Upon callback, the session token is securely restored and persisted.
 2. **Data Hydration**: `App.jsx` checks for an active session. If authenticated, it triggers `fetchLinks()`, querying the `public.links` table ordered by `created_at desc`. Skeleton cards display while the query completes.
 3. **Adding a Link**: When opening the "New Link" modal, pasting a destination URL triggers an automated parser that extracts the domain name to suggest a Title and custom handle (e.g. `https://github.com/subha-3128` suggests "Github" with handle `github-subha-3128`). A live preview card updates in real time.
 4. **Card Presentation & Brand Icons**: Each card uses candidate slug generation (`getAutoLogoCandidates`) against the Iconify API. If an official logo SVG is found, it renders in the card emblem; otherwise, the component gracefully falls back to two-letter initials.
-5. **Quick Interaction**: Clicking any link card copies the URL to the clipboard with an emerald confirmation badge and toast alert. A contextual menu on desktop and a mobile-friendly 3-dot dropdown provide options to display the QR code, visit the URL in a new tab, edit the link data, or delete the record with confirmation.
+5. **Quick Interaction**: Clicking any link card copies the URL to the clipboard with an animated confirmation badge and toast alert. A contextual menu on desktop and a mobile-friendly 3-dot dropdown provide options to display the QR code, visit the URL in a new tab, edit the link data, or delete the record with confirmation.
 6. **QR Code Sharing**: Clicking "QR Code" opens an overlay dialog requesting an image from `api.qrserver.com`. Users can inspect the QR code, open the destination URL, or trigger a direct blob-based PNG download.
 
 ---
@@ -281,16 +281,16 @@ node generate-icons.js
 
 ### Adding & Managing Links
 - **Create a Link**: Click the **"+ New Link"** button in the header or press `N` on your keyboard. Paste a destination URL; the title and handle slug will auto-populate. Review the live preview card and click **"Create Link"**.
-- **Search Links**: Press `⌘K` (Mac), `Ctrl+K` (Windows/Linux), or `/` to immediately focus the search input. Results update in real time.
+- **Search Links**: Press `Cmd+K` (Mac), `Ctrl+K` (Windows/Linux), or `/` to immediately focus the search input. Results update in real time.
 - **Copy Link**: Click directly on the link card's main surface to copy the URL to your clipboard.
-- **Generate QR Code**: Click the options icon (desktop toolbar or mobile `⋮` menu) and select **"QR Code"**. From the modal, you can preview the code or click **"Download Image"** to save it as a PNG.
+- **Generate QR Code**: Click the options icon (desktop toolbar or mobile 3-dot menu) and select **"QR Code"**. From the modal, you can preview the code or click **"Download Image"** to save it as a PNG.
 - **Edit or Delete**: Select **"Edit"** to adjust title, handle, or URL in-place, or select **"Delete"** and confirm to permanently remove the bookmark.
 
 ### Keyboard Shortcuts Reference
 
 | Shortcut | Context | Action |
 | :--- | :--- | :--- |
-| `⌘K` or `Ctrl+K` | Global | Focus search input |
+| `Cmd+K` or `Ctrl+K` | Global | Focus search input |
 | `/` | Global (when not typing) | Focus search input |
 | `N` | Global (when not typing) | Open New Link modal |
 | `Escape` | Inside Search | Blur search input and clear query |
